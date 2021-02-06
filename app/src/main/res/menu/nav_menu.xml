@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="STORAGE"
+        >
+        <menu>
+            <item android:title="My file 1"
+                android:icon="@drawable/ic_baseline_person_24"
+                />
+            <item android:title="My file 2"
+                android:icon="@drawable/ic_baseline_person_24"
+                />
+            <item android:title="My file 3"
+                android:icon="@drawable/ic_baseline_person_24"
+                />
+            <item android:title="My file 4"
+                android:icon="@drawable/ic_baseline_person_24"
+                />
+        </menu>
+    </item>
+
+    <item android:title="APP"
+        >
+        <menu>
+            <item android:title="Settings"
+                android:icon="@drawable/ic_baseline_person_24"
+                />
+            <item android:title="Logout"
+                android:icon="@drawable/ic_baseline_person_24"
+                />
+        </menu>
+    </item>
+
+</menu>

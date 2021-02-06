@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "190886925331",
+    "project_id": "slickk-wear",
+    "storage_bucket": "slickk-wear.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190886925331:android:3d36754d590272d1fd9be6",
+        "android_client_info": {
+          "package_name": "com.example.slickkwear"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190886925331-k0h5nm2bo9v1rud5d60f3he7lt3iqt3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw8ZsLHSQOYk-D1jJl0L7HDmE07YR31f4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190886925331-k0h5nm2bo9v1rud5d60f3he7lt3iqt3k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
