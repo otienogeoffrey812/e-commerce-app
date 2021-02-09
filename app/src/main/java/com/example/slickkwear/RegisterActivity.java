@@ -73,6 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             Intent intent = new Intent(getApplicationContext(), PhoneVerificationActivity.class);
             intent.putExtra("phoneNo", phone);
+//            intent.putExtra("password", password);
             startActivity(intent);
         }
     }

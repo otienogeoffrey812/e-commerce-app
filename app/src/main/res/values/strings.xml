@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Slickk Wear</string>
-    
+
     <string name="openNavDrawer" >Navigation Drawer Open</string>
     <string name="closeNavDrawer" >Navigation Drawer Close</string>
+    <string name="title_activity_admin_home">AdminHomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>
