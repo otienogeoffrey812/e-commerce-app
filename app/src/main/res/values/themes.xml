@@ -21,12 +21,12 @@
     <style name="Theme.SlickkWear.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.SlickkWear.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-<!--Global Activity Slide Aniamtion-->
+<!--Global Activity Slide Animation-->
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
-    <!--Global Activity Slide Aniamtion-->
+    <!--Global Activity Slide Animation-->
 </resources>
