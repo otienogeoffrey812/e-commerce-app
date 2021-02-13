@@ -9,13 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SlickkWear">
-        <activity android:name=".AdminProductsAddEditActivity"></activity>
+        <activity android:name=".AdminOrdersActivity"></activity>
+        <activity android:name=".AdminProductsAddEditActivity" />
         <activity android:name=".AdminSettingsActivity" />
         <activity android:name=".AdminAssistantActivity" />
         <activity android:name=".AdminDeliveryActivity" />
         <activity android:name=".AdminProductsActivity" />
         <activity android:name=".AdminCategoriesActivity" />
-        <activity android:name=".AdminOrdersActivity" />
         <activity
             android:name=".AdminHomeActivity"
             android:label="@string/title_activity_admin_home"

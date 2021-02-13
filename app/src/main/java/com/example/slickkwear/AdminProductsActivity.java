@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -27,7 +28,7 @@ public class AdminProductsActivity extends AppCompatActivity implements Navigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_home);
+        setContentView(R.layout.activity_admin_products);
 
         toolbar = findViewById(R.id.main_toolbar);
 //        toolbar.setTitle("Admin");
@@ -48,6 +49,8 @@ public class AdminProductsActivity extends AppCompatActivity implements Navigati
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        addProductButton = (MaterialButton) findViewById(R.id.admin_go_to_add_product_page_btn);
 
         addProductButton.setOnClickListener(
                 new View.OnClickListener() {

@@ -33,7 +33,7 @@
             >
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/admin_add_product_btn"
+                android:id="@+id/admin_go_to_add_product_page_btn"
                 android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
