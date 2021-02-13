@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminHomeActivity"
+    tools:context=".AdminProductsActivity"
     android:id="@+id/drawer_layout">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -25,6 +25,29 @@
                 app:title="Admin"
                 />
         </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            >
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/admin_add_product_btn"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="Add Product"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@+id/admin_add_product_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </RelativeLayout>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

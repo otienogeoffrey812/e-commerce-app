@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.slickkwear" >
+    package="com.example.slickkwear">
 
     <application
         android:allowBackup="true"
@@ -8,16 +8,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SlickkWear" >
+        android:theme="@style/Theme.SlickkWear">
+        <activity android:name=".AdminProductsAddEditActivity"></activity>
+        <activity android:name=".AdminSettingsActivity" />
+        <activity android:name=".AdminAssistantActivity" />
+        <activity android:name=".AdminDeliveryActivity" />
+        <activity android:name=".AdminProductsActivity" />
+        <activity android:name=".AdminCategoriesActivity" />
+        <activity android:name=".AdminOrdersActivity" />
         <activity
             android:name=".AdminHomeActivity"
             android:label="@string/title_activity_admin_home"
-            android:theme="@style/Theme.SlickkWear.NoActionBar" >
-        </activity>
+            android:theme="@style/Theme.SlickkWear.NoActionBar" />
         <activity android:name=".PhoneVerificationActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

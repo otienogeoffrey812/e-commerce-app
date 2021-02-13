@@ -10,16 +10,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 
-public class AdminHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class AdminProductsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //Choose android x version
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private MaterialButton addProductButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +43,21 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
                 R.string.openNavDrawer,
                 R.string.closeNavDrawer
         );
+
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        addProductButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(), AdminProductsAddEditActivity.class);
+                        startActivity(intent);
+                    }
+                }
+        );
 
     }
 

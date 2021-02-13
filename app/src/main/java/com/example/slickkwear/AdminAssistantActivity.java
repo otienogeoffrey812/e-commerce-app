@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class AdminHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class AdminAssistantActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //Choose android x version
     private Toolbar toolbar;
@@ -24,7 +24,7 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_home);
+        setContentView(R.layout.activity_admin_assistant);
 
         toolbar = findViewById(R.id.main_toolbar);
 //        toolbar.setTitle("Admin");
@@ -40,6 +40,7 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
                 R.string.openNavDrawer,
                 R.string.closeNavDrawer
         );
+
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);

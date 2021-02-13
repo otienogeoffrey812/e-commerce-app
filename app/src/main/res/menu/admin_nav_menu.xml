@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/admin_home_menu"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="HOME"/>
+        <item
+            android:id="@+id/admin_orders_menu"
+            android:icon="@drawable/ic_baseline_list_24"
+            android:title="ORDERS"
+            android:iconTint="@android:color/white"/>
+        <item
+            android:id="@+id/admin_categories_menu"
+            android:icon="@drawable/ic_baseline_category_24"
+            android:title="CATEGORIES"
+            android:iconTint="@android:color/white"/>
+        <item
+            android:id="@+id/admin_products_menu"
+            android:icon="@drawable/ic_baseline_menu_24"
+            android:title="PRODUCTS"
+            android:iconTint="@android:color/white"/>
+        <item
+            android:id="@+id/admin_delivery_menu"
+            android:icon="@drawable/ic_baseline_directions_bike_24"
+            android:title="DELIVERY"
+            android:iconTint="@android:color/white"/>
+        <item
+            android:id="@+id/admin_assistant_menu"
+            android:icon="@drawable/ic_baseline_person_add_24"
+            android:title="ASSISTANT"
+            android:iconTint="@android:color/white"/>
+        <item
+            android:id="@+id/admin_main_home_menu"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="MAIN HOME"
+            android:iconTint="@android:color/white"/>
+
+    </group>
+    <group android:id="@+id/bottom_menu_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/admin_settings_menu"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="SETTINGS"
+            android:iconTint="@android:color/white"/>
+        <item
+            android:id="@+id/admin_logout_menu"
+            android:icon="@drawable/ic_baseline_settings_power_24"
+            android:title="LOG OUT" />
+    </group>
+
+</menu>
