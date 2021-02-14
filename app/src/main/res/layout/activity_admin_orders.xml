@@ -60,5 +60,5 @@
         android:layout_gravity="start"
         app:itemTextColor="@color/dark_blue"
         app:headerLayout="@layout/admin_nav_header_layout"/>
- 
+
 </androidx.drawerlayout.widget.DrawerLayout>

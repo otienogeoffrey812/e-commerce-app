@@ -38,11 +38,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:text="Add Product"
+                android:text="Add New Product"
                 />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@+id/admin_add_product_btn"
+                android:id="@+id/recycler_view"
+                android:layout_below="@+id/admin_go_to_add_product_page_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />

@@ -6,16 +6,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.slickkwear.Model.Products;
+import com.example.slickkwear.ViewHolder.ProductViewHolder;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 public class AdminProductsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -24,6 +35,10 @@ public class AdminProductsActivity extends AppCompatActivity implements Navigati
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private MaterialButton addProductButton;
+
+    private DatabaseReference productsRef;
+    private RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +77,68 @@ public class AdminProductsActivity extends AppCompatActivity implements Navigati
                 }
         );
 
+
+
+        productsRef = FirebaseDatabase.getInstance().getReference().child("Products");
+
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);
+//        recyclerView.hasNestedScrollingParent();
+//        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+
+
+
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>()
+                .setQuery(productsRef, Products.class)
+                .build();
+        FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter = new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Products model) {
+
+                holder.txtProductName.setText(model.getProductName());
+                holder.txtProductPrice.setText("Ksh " + model.getProductPrice());
+//                       holder.txtProductDescription.setText(model.getProductDescription());
+                Picasso.get().load(model.getProductImage()).into(holder.txtProductImage);
+
+                //Onclick listener to take the user to the products details
+//                holder.itemView.setOnClickListener(
+//                        new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//
+//                                Intent intent = new Intent(MainActivity.this, ProductDetailsActivity.class);
+//                                intent.putExtra("ProductUniqueID", model.getProductUniqueID());
+//                                startActivity(intent);
+//                            }
+//                        }
+//                );
+                //Onclick listener to take the user to the products details
+
+            }
+
+            @NonNull
+            @Override
+            public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_products_display_layout, parent, false);
+                ProductViewHolder holder = new ProductViewHolder(view);
+                return holder;
+            }
+        };
+
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
