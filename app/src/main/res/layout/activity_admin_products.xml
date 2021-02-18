@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/white"
-                app:title="Admin"
+                app:title="Products"
                 />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -46,6 +46,29 @@
                 android:layout_below="@+id/admin_go_to_add_product_page_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                />
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/progressBar1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                style="@style/Widget.AppCompat.ProgressBar"-->
+<!--                android:indeterminateTint="?attr/colorPrimary"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:visibility="visible"-->
+<!--                android:progressTint="?attr/colorPrimary"-->
+<!--                android:elevation="100dp"-->
+<!--                />-->
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"
+                android:indeterminateTint="?attr/colorPrimary"
+                android:layout_marginBottom="5dp"
                 />
 
         </RelativeLayout>
