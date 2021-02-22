@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.slickkwear.Model.SliderItem;
 import com.smarteist.autoimageslider.SliderViewAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +56,11 @@ public class SliderHomeAdapter extends
         viewHolder.textViewDescription.setText(sliderItem.getDescription());
         viewHolder.textViewDescription.setTextSize(16);
         viewHolder.textViewDescription.setTextColor(Color.WHITE);
-        Glide.with(viewHolder.itemView)
-                .load(sliderItem.getImageUrl())
-                .fitCenter()
-                .into(viewHolder.imageViewBackground);
+//        Glide.with(viewHolder.itemView)
+//                .load(sliderItem.getImageUrl())
+//                .fitCenter()
+//                .into(viewHolder.imageViewBackground);
+        Picasso.get().load(sliderItem.getImageUrl()).into(viewHolder.imageViewBackground);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

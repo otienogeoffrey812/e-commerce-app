@@ -22,10 +22,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -48,7 +47,7 @@ public class AdminProductsAddEditActivity extends AppCompatActivity {
     private Uri ImageUri;
 
     private StorageReference productImagesRef;
-    private DatabaseReference productRef;
+    private FirebaseFirestore productRef;
 
     private Toolbar toolbar;
 
@@ -64,7 +63,7 @@ public class AdminProductsAddEditActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.back_icon);
 
         productImagesRef = FirebaseStorage.getInstance().getReference().child("Product Images");
-        productRef = FirebaseDatabase.getInstance().getReference().child("Products");
+        productRef = FirebaseFirestore.getInstance();
 
         addProductImage = (ShapeableImageView) findViewById(R.id.admin_add_product_image);
         addProductName = (TextInputLayout) findViewById(R.id.admin_add_product_name);
@@ -231,29 +230,26 @@ public class AdminProductsAddEditActivity extends AppCompatActivity {
         productMap.put("ProductCategory", "null");
         productMap.put("ProductStatus", "active");
 
-        productRef.child(productUniqueID).updateChildren(productMap)
-                .addOnCompleteListener(
-                        new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
+        productRef.collection("Products").document(productUniqueID).set(productMap)
+                 .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        loadingBar.dismiss();
+                        Toast.makeText(getApplicationContext(), "Product Added Successfully.", Toast.LENGTH_SHORT).show();
 
-                                if (task.isSuccessful())
-                                {
-                                    loadingBar.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Product Added Successfully.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), AdminProductsActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        loadingBar.dismiss();
+                        Toast.makeText(getApplicationContext(), "Error!!!! Product not added.", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-                                    Intent intent = new Intent(getApplicationContext(), AdminProductsActivity.class);
-                                    startActivity(intent);
-                                }
-                                else
-                                {
-                                    loadingBar.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Error!!!! Product not added.", Toast.LENGTH_SHORT).show();
-                                }
 
-                            }
-                        }
-                );
     }
 
 

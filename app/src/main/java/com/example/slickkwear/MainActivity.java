@@ -6,31 +6,44 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.slickkwear.Model.Products;
 import com.example.slickkwear.Model.SliderItem;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-public class MainActivity extends AppCompatActivity {
-
+    private BottomNavigationView bottomNavigationView;
     SliderView sliderView;
     private SliderHomeAdapter adapter;
+
+    private FirebaseFirestore productRef;
+    private Query query;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        productRef = FirebaseFirestore.getInstance();
+        query = productRef.collection("Products");
+
+         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
 
         homeSliderBanner();
@@ -38,24 +51,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void homeSliderBanner() {
 
-
         sliderView = findViewById(R.id.imageSlider);
 
         adapter = new SliderHomeAdapter(this);
 
-//        TextView test1 = findViewById(R.id.search_input);
+        query.get().addOnSuccessListener(
+                new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-        List<SliderItem> sliderItemList = new ArrayList<>();
-        SliderItem sliderItem = new SliderItem();
-        //dummy data
-        for (int i = 0; i < 5; i++) {
-            sliderItem.setDescription("Slider Item ");
-            sliderItem.setImageUrl("https://firebasestorage.googleapis.com/v0/b/slickk-wear.appspot.com/o/Product%20Images%2Fimage%3A23897520210214082521jpg?alt=media&token=b08c3abd-4d7c-47f8-8018-656b2a7ce046");
-//                        test1.setText();
-            sliderItemList.add(sliderItem);
-        }
+                        for (QueryDocumentSnapshot result : queryDocumentSnapshots)
+                        {
+                            SliderItem sliderItem = new SliderItem();
+                            sliderItem.setDescription(result.getString("ProductName"));
+                            sliderItem.setImageUrl(result.getString("ProductImage"));
+                            adapter.addItem(sliderItem);
+                        }
 
-        adapter.renewItems(sliderItemList);
+                    }
+                }
+        );
 
         sliderView.setSliderAdapter(adapter);
 
@@ -63,9 +78,33 @@ public class MainActivity extends AppCompatActivity {
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
         sliderView.setIndicatorSelectedColor(Color.WHITE);
-//        sliderView.setIndicatorUnselectedColor(Color.GRAY);
+//        sliderView.setIndicatorUnselectedColor(R.attr.colorPrimary);
         sliderView.setScrollTimeInSec(3);
         sliderView.setAutoCycle(true);
         sliderView.startAutoCycle();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.bottom_nav_home)
+        {
+            Toast.makeText(this, "Home Clicked", Toast.LENGTH_SHORT).show();
+        }
+        else if (item.getItemId() == R.id.bottom_nav_category)
+        {
+            Intent intent = new Intent(getApplicationContext(), AdminOrdersActivity.class);
+            startActivity(intent);
+        }
+        else if (item.getItemId() == R.id.bottom_nav_cart)
+        {
+            Intent intent = new Intent(getApplicationContext(), AdminCategoriesActivity.class);
+            startActivity(intent);
+        }
+        else if (item.getItemId() == R.id.bottom_nav_account)
+        {
+            Intent intent = new Intent(getApplicationContext(), AdminCategoriesActivity.class);
+            startActivity(intent);
+        }
+        return false;
     }
 }

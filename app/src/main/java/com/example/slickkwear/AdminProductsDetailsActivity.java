@@ -7,15 +7,16 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.slickkwear.Model.Products;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 public class AdminProductsDetailsActivity extends AppCompatActivity {
@@ -26,7 +27,8 @@ public class AdminProductsDetailsActivity extends AppCompatActivity {
     private MaterialTextView productName, productPrice, productQuantity,ProductAvailability, productDescription;
     private String productID;
 
-    private DatabaseReference productRef;
+    private FirebaseFirestore productRef;
+    private DocumentReference productItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,28 +53,35 @@ public class AdminProductsDetailsActivity extends AppCompatActivity {
     }
 
     private void getProductDetails(String productID) {
-        productRef = FirebaseDatabase.getInstance().getReference("Products");
+        productRef = FirebaseFirestore.getInstance();
+        productItem = productRef.collection("Products").document(productID);
 
-        productRef.child(productID).addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+        productItem.get()
+                .addOnSuccessListener(
+                        new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                        if(snapshot.exists())
-                        {
-                            Products products = snapshot.getValue(Products.class);
-                            productName.setText(products.getProductName());
-                            productPrice.setText(products.getProductPrice());
-                            productDescription.setText(products.getProductDescription());
-                            productQuantity.setText(products.getProductStatus());
-                            Picasso.get().load(products.getProductImage()).into(productImage);
+                                if(documentSnapshot.exists())
+                                {
+//                                    Products products = documentSnapshot.getValue(Products.class);
+                                    productName.setText(documentSnapshot.getString("ProductName"));
+                                    productPrice.setText(documentSnapshot.getString("ProductPrice"));
+                                    productDescription.setText(documentSnapshot.getString("ProductDescription"));
+                                    productQuantity.setText(documentSnapshot.getString("ProductStatus"));
+                                    Picasso.get().load(documentSnapshot.getString("ProductImage")).into(productImage);
+                                }
+                                else {
+                                    Toast.makeText(AdminProductsDetailsActivity.this, "Product Doesn't exist!", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
                         }
-
-                    }
-
+                ).addOnFailureListener(
+                new OnFailureListener() {
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AdminProductsDetailsActivity.this, "Loading product details unsuccessful !", Toast.LENGTH_SHORT).show();
                     }
                 }
         );

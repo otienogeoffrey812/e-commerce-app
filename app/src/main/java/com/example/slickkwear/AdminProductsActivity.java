@@ -24,15 +24,13 @@ import android.widget.Toast;
 
 import com.example.slickkwear.Model.Products;
 import com.example.slickkwear.ViewHolder.ProductViewHolder;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.firebase.ui.database.paging.DatabasePagingOptions;
-import com.firebase.ui.database.paging.FirebaseRecyclerPagingAdapter;
-import com.firebase.ui.database.paging.LoadingState;
+import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.firebase.ui.firestore.paging.LoadingState;
 import com.squareup.picasso.Picasso;
 
 public class AdminProductsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,7 +41,8 @@ public class AdminProductsActivity extends AppCompatActivity implements Navigati
     private NavigationView navigationView;
     private MaterialButton addProductButton;
 
-    private DatabaseReference productsRef;
+    private FirebaseFirestore productsRef;
+    private Query query;
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     private ProgressBar progressBar1, progressBar2;
@@ -92,7 +91,8 @@ public class AdminProductsActivity extends AppCompatActivity implements Navigati
 
 
 
-        productsRef = FirebaseDatabase.getInstance().getReference().child("Products");
+        productsRef = FirebaseFirestore.getInstance();
+        query = productsRef.collection("Products");
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -117,12 +117,11 @@ public class AdminProductsActivity extends AppCompatActivity implements Navigati
                 .setPageSize(2)
                 .build();
 
-        DatabasePagingOptions<Products> options = new DatabasePagingOptions.Builder<Products>()
-                .setLifecycleOwner(this)
-                .setQuery(productsRef,config, Products.class)
+        FirestorePagingOptions<Products> options = new FirestorePagingOptions.Builder<Products>()
+                .setQuery(query,config, Products.class)
                 .build();
 
-        FirebaseRecyclerPagingAdapter<Products, ProductViewHolder> adapter = new FirebaseRecyclerPagingAdapter<Products, ProductViewHolder>(options) {
+        FirestorePagingAdapter<Products, ProductViewHolder> adapter = new FirestorePagingAdapter<Products, ProductViewHolder>(options) {
             @NonNull
             @Override
             protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Products model) {
