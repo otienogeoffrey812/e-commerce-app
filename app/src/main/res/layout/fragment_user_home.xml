@@ -13,9 +13,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/search"-->
+<!--        android:id="@+id/search_recyclerview"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:elevation="50dp"-->
+<!--        />-->
         <androidx.cardview.widget.CardView
             app:layout_constraintTop_toBottomOf="@+id/search"
-            android:id="@+id/cv_slider_mainActivity"
+            android:id="@+id/banner_slider_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -38,6 +45,14 @@
                 app:sliderIndicatorUnselectedColor="#FFF"
                 app:sliderScrollTimeInSec="1" />
         </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintTop_toBottomOf="@+id/banner_slider_card"
+        android:id="@+id/recycler_view_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        />
 
 
 

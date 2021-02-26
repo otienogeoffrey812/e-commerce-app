@@ -1,8 +1,10 @@
 package com.example.slickkwear;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -51,6 +53,23 @@ public class UserHomeFragment extends Fragment {
 
         productRef = FirebaseFirestore.getInstance();
         query = productRef.collection("Products");
+
+        SearchView searchView = view.findViewById(R.id.search);
+        final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(getContext(), SearchableActivity.class);
+                startActivity(intent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return true;
+
+            }
+        };
 
         homeSliderBanner();
 

@@ -1,14 +1,269 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UserAccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="100dp"
+        >
 
-</FrameLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/account_top"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent=".25"
+            app:cardBackgroundColor="?attr/colorPrimary"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/user_account_image_view"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="100dp"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="10dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_baseline_person_24" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/user_account_name"
+                    android:layout_toRightOf="@+id/user_account_image_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="Geoffrey Otieno"
+                    android:textColor="@color/white"
+                    />
+                <Button
+                    android:layout_below="@+id/user_account_image_view"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Register"
+                    />
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            app:layout_constraintTop_toBottomOf="@+id/account_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            >
+            <com.google.android.material.textview.MaterialTextView
+                app:layout_constraintTop_toBottomOf="@+id/account_top"
+                android:id="@+id/account_my_wishlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flow_verticalAlign="center"
+                android:text="My Wishlist"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/black"
+                android:drawableTint="@color/black"
+                android:drawablePadding="10dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawableStart="@drawable/ic_baseline_favorite_24"
+                />
+            <View
+                app:layout_constraintTop_toBottomOf="@+id/account_my_wishlist"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#DCDCDC"
+                android:layout_marginHorizontal="20dp"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                app:layout_constraintTop_toBottomOf="@+id/account_my_wishlist"
+                android:id="@+id/account_my_orders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My Orders"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/black"
+                android:drawableTint="@color/black"
+                android:drawablePadding="10dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawableStart="@drawable/ic_baseline_list_24"
+                />
+
+            <View
+                app:layout_constraintTop_toBottomOf="@+id/account_my_wishlist"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#DCDCDC"
+                android:layout_marginHorizontal="20dp"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                app:layout_constraintTop_toBottomOf="@+id/account_my_wishlist"
+                android:id="@+id/account_my_orders0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recent searches"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/black"
+                android:drawableTint="@color/black"
+                android:drawablePadding="10dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawableStart="@drawable/ic_baseline_list_24"
+                />
+            <View
+                app:layout_constraintTop_toBottomOf="@+id/account_my_wishlist"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#DCDCDC"
+                android:layout_marginHorizontal="20dp"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                app:layout_constraintTop_toBottomOf="@+id/account_my_wishlist"
+                android:id="@+id/account_my_orders00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recent views"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/black"
+                android:drawableTint="@color/black"
+                android:drawablePadding="10dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawableStart="@drawable/ic_baseline_list_24"
+                />
+
+            <View
+                app:layout_constraintTop_toBottomOf="@+id/account_my_wishlist"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#DCDCDC"
+                android:layout_marginHorizontal="20dp"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                app:layout_constraintTop_toBottomOf="@+id/account_my_orders"
+                android:id="@+id/account_myorders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Shipping Information"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/black"
+                android:drawableTint="@color/black"
+                android:drawablePadding="10dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawableStart="@drawable/ic_baseline_directions_bike_24"
+                />
+            <View
+                app:layout_constraintTop_toBottomOf="@+id/account_my_wishlist"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#DCDCDC"
+                android:layout_marginHorizontal="20dp"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                app:layout_constraintTop_toBottomOf="@+id/account_my_orders"
+                android:id="@+id/user_account_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Admin"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/black"
+                android:drawableTint="@color/black"
+                android:drawablePadding="10dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawableStart="@drawable/ic_baseline_admin_panel_settings_24"
+                />
+
+            <View
+                app:layout_constraintTop_toBottomOf="@+id/account_my_wishlist"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#DCDCDC"
+                android:layout_marginHorizontal="20dp"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                app:layout_constraintTop_toBottomOf="@+id/account_my_orders"
+                android:id="@+id/user_account_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/black"
+                android:drawableTint="@color/black"
+                android:drawablePadding="10dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawableStart="@drawable/ic_baseline_settings_24"
+                />
+            <View
+                app:layout_constraintTop_toBottomOf="@+id/account_my_wishlist"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#DCDCDC"
+                android:layout_marginHorizontal="20dp"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/black"
+                android:drawableTint="@color/black"
+                android:drawableStart="@drawable/ic_baseline_settings_power_24"
+                android:drawablePadding="10dp"
+                />
+            <View
+                app:layout_constraintTop_toBottomOf="@+id/account_my_wishlist"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#DCDCDC"
+                android:layout_marginHorizontal="20dp"
+                />
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>
