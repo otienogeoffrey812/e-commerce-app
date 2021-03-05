@@ -33,7 +33,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_baseline_add_a_photo_24"
-        app:layout_constraintHeight_percent=".25"
+        app:layout_constraintHeight_percent=".20"
+        />
+
+    <Spinner
+        android:id="@+id/admin_add_product_category"
+        app:layout_constraintTop_toBottomOf="@+id/admin_add_product_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/spinner_bg"
         />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -42,7 +55,7 @@
         android:layout_height="0dp"
         app:layout_constraintHeight_percent=".10"
         android:gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="20dp"
         android:drawablePadding="10dp"
         app:strokeColor="?attr/colorPrimary"
@@ -55,7 +68,7 @@
         app:layout_constraintBottom_toTopOf="@+id/admin_add_product_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_add_product_image"
+        app:layout_constraintTop_toBottomOf="@+id/admin_add_product_category"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -70,7 +83,7 @@
         android:layout_height="0dp"
         app:layout_constraintHeight_percent=".10"
         android:gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="20dp"
         android:drawablePadding="10dp"
         app:strokeColor="?attr/colorPrimary"
@@ -98,7 +111,7 @@
         android:layout_height="0dp"
         app:layout_constraintHeight_percent=".10"
         android:gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="20dp"
         android:drawablePadding="10dp"
         app:strokeColor="?attr/colorPrimary"
@@ -127,23 +140,14 @@
         android:layout_height="0dp"
         app:layout_constraintHeight_percent=".10"
         android:gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="20dp"
         android:drawablePadding="10dp"
         android:text="Add Product"
         app:cornerRadius="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/admin_add_product_category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/admin_add_product_description" />
 
-    <Spinner
-        android:id="@+id/admin_add_product_category"
-        app:layout_constraintTop_toBottomOf="@+id/admin_add_product_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

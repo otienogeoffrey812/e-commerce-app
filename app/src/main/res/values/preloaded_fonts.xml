@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/jacques_francois</item>
+        <item>@font/lusitana</item>
+        <item>@font/roboto</item>
+        <item>@font/secular_one</item>
+        <item>@font/yeseva_one</item>
+    </array>
+</resources>

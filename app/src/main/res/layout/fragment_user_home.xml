@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,24 +8,18 @@
     tools:context=".UserHomeFragment">
 
         <androidx.appcompat.widget.SearchView
+            android:layout_alignParentTop="true"
             android:id="@+id/search"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             />
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/search"-->
-<!--        android:id="@+id/search_recyclerview"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:elevation="50dp"-->
-<!--        />-->
+
         <androidx.cardview.widget.CardView
-            app:layout_constraintTop_toBottomOf="@+id/search"
+            android:layout_below="@+id/search"
             android:id="@+id/banner_slider_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginHorizontal="10dp"
             app:cardCornerRadius="8dp">
 
             <com.smarteist.autoimageslider.SliderView
@@ -46,14 +40,85 @@
                 app:sliderScrollTimeInSec="1" />
         </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toBottomOf="@+id/banner_slider_card"
-        android:id="@+id/recycler_view_category"
+<!--    <RelativeLayout-->
+<!--        android:layout_below="@+id/banner_slider_card"-->
+<!--        android:id="@+id/category_container"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:background="@color/white"-->
+<!--        >-->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:elevation="15dp"
+            android:layout_below="@+id/banner_slider_card"
+            android:id="@+id/category_container"
+            android:layout_margin="10dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <TextView
+                    android:id="@+id/home_category_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Collection"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:paddingHorizontal="5dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/jacques_francois"
+                    />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/home_category_title"
+                    android:id="@+id/recycler_view_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    />
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+<!--    </RelativeLayout>-->
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="15dp"
+        android:layout_below="@+id/category_container"
+        android:id="@+id/today_deals_container"
         android:layout_margin="10dp"
-        />
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/today_deals_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Today's Deals"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:paddingHorizontal="5dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/jacques_francois"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@+id/today_deals_title"
+                android:id="@+id/recycler_view_today_deals"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                />
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

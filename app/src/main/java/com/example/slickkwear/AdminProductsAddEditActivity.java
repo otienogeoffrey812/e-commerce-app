@@ -12,9 +12,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.slickkwear.Model.SliderItem;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,22 +29,28 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class AdminProductsAddEditActivity extends AppCompatActivity {
 
     private TextInputLayout addProductName, addProductPrice, addProductDescription;
     private MaterialButton addProductButton;
     private ShapeableImageView addProductImage;
+    private Spinner addProductCategory;
     private ProgressDialog loadingBar;
 
-    private String productUniqueID, saveCurrentDate, saveCurrentTime, productName, productPrice, productDescription;
+    private String productUniqueID, saveCurrentDate, saveCurrentTime, productName, productPrice, productDescription, productCategoryID;
     private String downloadImageUrl;
 
     private static final int GalleryPick = 1;
@@ -48,8 +58,11 @@ public class AdminProductsAddEditActivity extends AppCompatActivity {
 
     private StorageReference productImagesRef;
     private FirebaseFirestore productRef;
+    private Query query;
 
     private Toolbar toolbar;
+
+    List<SpinnerItems> categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +82,7 @@ public class AdminProductsAddEditActivity extends AppCompatActivity {
         addProductName = (TextInputLayout) findViewById(R.id.admin_add_product_name);
         addProductPrice = (TextInputLayout) findViewById(R.id.admin_add_product_price);
         addProductDescription = (TextInputLayout) findViewById(R.id.admin_add_product_description);
+        addProductCategory = (Spinner) findViewById(R.id.admin_add_product_category);
         loadingBar = new ProgressDialog(this);
 
         addProductButton = (MaterialButton) findViewById(R.id.admin_add_product_btn);
@@ -81,6 +95,8 @@ public class AdminProductsAddEditActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        categorySpinner();
 
         addProductButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -102,6 +118,42 @@ public class AdminProductsAddEditActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+    private void categorySpinner() {
+
+        // Spinner click listener
+//        addProductCategory.setOnItemSelectedListener(this);
+
+        query = productRef.collection("Categories");
+        // Spinner Drop down elements
+        categories = new ArrayList<SpinnerItems>();
+
+        categories.add(new SpinnerItems("Select category", ""));
+        query.get().addOnSuccessListener(
+                new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot result : queryDocumentSnapshots)
+                        {
+                            categories.add(new SpinnerItems(result.getString("CategoryName"),result.getString("CategoryUniqueID")));
+                        }
+
+                    }
+                }
+        );
+
+
+        // Creating adapter for spinner
+        ArrayAdapter<SpinnerItems> dataAdapter = new ArrayAdapter<SpinnerItems>(this, android.R.layout.simple_spinner_item, categories);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        addProductCategory.setAdapter(dataAdapter);
+    }
+
 
     private void openGallery() {
         Intent galleryIntent = new Intent();
@@ -126,9 +178,18 @@ public class AdminProductsAddEditActivity extends AppCompatActivity {
         productPrice = addProductPrice.getEditText().getText().toString();
         productDescription = addProductDescription.getEditText().getText().toString();
 
+        int cat_position =  addProductCategory.getSelectedItemPosition();
+        productCategoryID = categories.get(cat_position).spinnerItemID;
+
+
+
         if(ImageUri == null)
         {
             Toast.makeText(this, "Product Image cannot be empty !", Toast.LENGTH_SHORT).show();
+        }
+        else  if (TextUtils.isEmpty(productCategoryID))
+        {
+            Toast.makeText(this, "Product Category cannot be empty !", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(productName))
         {
@@ -227,7 +288,7 @@ public class AdminProductsAddEditActivity extends AppCompatActivity {
         productMap.put("ProductImage", downloadImageUrl);
         productMap.put("ProductPrice", productPrice);
         productMap.put("ProductDescription", productDescription);
-        productMap.put("ProductCategory", "null");
+        productMap.put("ProductCategory", productCategoryID);
         productMap.put("ProductStatus", "active");
 
         productRef.collection("Products").document(productUniqueID).set(productMap)

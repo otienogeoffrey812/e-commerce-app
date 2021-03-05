@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="5dp"
+    android:layout_weight="1"
+    app:cardCornerRadius="0dp"
+    android:padding="2dp">
+
+    <RelativeLayout
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        >
+
+        <ImageView
+            android:layout_alignParentTop="true"
+            android:id="@+id/user_home_deals_image"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_baseline_insert_photo_24"
+            android:scaleType="centerCrop"
+            />
+
+        <TextView
+            android:id="@+id/user_home_deals_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_home_deals_image"
+            android:gravity="center"
+            android:text="Deal name"
+            android:fontFamily="@font/jacques_francois"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/user_home_deals_price_initial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_home_deals_name"
+            android:gravity="center"
+            android:text="Deal price"
+            android:fontFamily="@font/jacques_francois"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/user_home_deals_price_discounted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_home_deals_price_initial"
+            android:gravity="center"
+            android:text="Deal discount"
+            android:fontFamily="@font/jacques_francois"
+            android:textColor="@color/black"
+            />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
