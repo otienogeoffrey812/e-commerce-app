@@ -94,7 +94,7 @@ public class AdminCategoriesActivity extends AppCompatActivity implements Naviga
         recyclerView.setNestedScrollingEnabled(false);
 //        recyclerView.hasNestedScrollingParent();
 //        layoutManager = new LinearLayoutManager(this);
-        layoutManager = new GridLayoutManager(this, 2);
+        layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
 
     }

@@ -16,38 +16,29 @@
 
         <ImageView
             android:layout_alignParentTop="true"
-            android:id="@+id/user_home_deals_image"
+            android:id="@+id/user_home_trending_image"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="130dp"
             android:src="@drawable/ic_baseline_insert_photo_24"
             android:scaleType="centerCrop"
             />
 
         <TextView
-            android:id="@+id/user_home_deals_name"
+            android:id="@+id/user_home_trending_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/user_home_deals_image"
+            android:layout_below="@+id/user_home_trending_image"
             android:gravity="center"
             android:text="Deal name"
             android:textColor="@color/black"
             />
         <TextView
-            android:id="@+id/user_home_deals_price_initial"
+            android:id="@+id/user_home_trending_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/user_home_deals_name"
+            android:layout_below="@+id/user_home_trending_name"
             android:gravity="center"
             android:text="Deal price"
-            />
-        <TextView
-            android:id="@+id/user_home_deals_price_discounted"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/user_home_deals_price_initial"
-            android:gravity="center"
-            android:text="Deal discount"
-            android:textColor="@color/black"
             />
 
     </RelativeLayout>

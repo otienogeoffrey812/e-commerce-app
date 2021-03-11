@@ -7,15 +7,52 @@
     android:layout_height="match_parent"
     tools:context=".UserHomeFragment">
 
-        <androidx.appcompat.widget.SearchView
-            android:layout_alignParentTop="true"
+<!--        <androidx.appcompat.widget.SearchView-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:id="@+id/search"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?attr/actionBarSize"-->
+<!--            />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/search_container"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp"
+        >
+        <EditText
             android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:hint="search..."
+            android:drawableStart="@drawable/ic_baseline_arrow_back_ios_24"
+            android:layout_marginRight="0dp"
+            />
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/ic_baseline_favorite_24"
+            android:gravity="center"
+            android:layout_marginLeft="0dp"
             />
 
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_below="@id/search_container"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
         <androidx.cardview.widget.CardView
-            android:layout_below="@+id/search"
             android:id="@+id/banner_slider_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,25 +77,19 @@
                 app:sliderScrollTimeInSec="1" />
         </androidx.cardview.widget.CardView>
 
-<!--    <RelativeLayout-->
-<!--        android:layout_below="@+id/banner_slider_card"-->
-<!--        android:id="@+id/category_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="150dp"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:background="@color/white"-->
-<!--        >-->
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:elevation="15dp"
             android:layout_below="@+id/banner_slider_card"
             android:id="@+id/category_container"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
             >
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 >
                 <TextView
                     android:id="@+id/home_category_title"
@@ -75,50 +106,135 @@
                     android:layout_below="@+id/home_category_title"
                     android:id="@+id/recycler_view_category"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:scrollbars="none"
                     />
             </RelativeLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-<!--    </RelativeLayout>-->
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="15dp"
-        android:layout_below="@+id/category_container"
-        android:id="@+id/today_deals_container"
-        android:layout_margin="10dp"
-        >
-        <RelativeLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="15dp"
+            android:layout_below="@+id/category_container"
+            android:id="@+id/today_deals_container"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
             >
-            <TextView
-                android:id="@+id/today_deals_title"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Today's Deals"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:paddingHorizontal="5dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/jacques_francois"
-                />
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@+id/today_deals_title"
-                android:id="@+id/recycler_view_today_deals"
+                >
+                <LinearLayout
+                    android:id="@+id/today_deals_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Today's Deals"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:paddingHorizontal="5dp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/jacques_francois"
+                        />
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:drawableTint="@color/red"-->
+<!--                        android:drawableStart="@drawable/ic_baseline_local_fire_department_24"-->
+<!--                        />-->
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/today_deals_title"
+                    android:id="@+id/recycler_view_today_deals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    />
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="15dp"
+            android:layout_below="@+id/today_deals_container"
+            android:id="@+id/trending_container"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            >
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none"
-                />
-        </RelativeLayout>
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/home_trending_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Trending"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:paddingHorizontal="5dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/jacques_francois"
+                    />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/home_trending_title"
+                    android:id="@+id/recycler_view_home_trending"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    />
+            </RelativeLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_below="@+id/trending_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="15dp"
+            android:id="@+id/products_container"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="70dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/home_products_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="You might like"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:paddingHorizontal="5dp"
+                    android:textColor="@color/black"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/home_products_title"
+                    android:id="@+id/recycler_view_home_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    />
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
+        </LinearLayout>
 
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

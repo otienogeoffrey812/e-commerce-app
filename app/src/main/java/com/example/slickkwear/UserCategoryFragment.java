@@ -1,64 +1,150 @@
 package com.example.slickkwear;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.paging.PagedList;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UserCategoryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.slickkwear.Model.Categories;
+import com.example.slickkwear.ViewHolder.CategoryCategoryViewHolder;
+import com.example.slickkwear.ViewHolder.HomeCategoryViewHolder;
+import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.firebase.ui.firestore.paging.LoadingState;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.squareup.picasso.Picasso;
+
 public class UserCategoryFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerViewCategory;
+    private RecyclerView.LayoutManager layoutManagerCategories;
+    private FirebaseFirestore categoryRef;
+    private Query queryCategory;
+    private View view;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public UserCategoryFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UserCategoryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UserCategoryFragment newInstance(String param1, String param2) {
-        UserCategoryFragment fragment = new UserCategoryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_category, container, false);
+        view = inflater.inflate(R.layout.fragment_user_category, container, false);
+
+        categoryRef = FirebaseFirestore.getInstance();
+        queryCategory = categoryRef.collection("Categories");
+
+        recyclerViewCategory = (RecyclerView) view.findViewById(R.id.recycler_view_user_category);
+        recyclerViewCategory.setHasFixedSize(true);
+        recyclerViewCategory.setNestedScrollingEnabled(false);
+        layoutManagerCategories = new GridLayoutManager(getContext(), 2);
+        recyclerViewCategory.setLayoutManager(layoutManagerCategories);
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setInitialLoadSizeHint(10)
+//                .setEnablePlaceholders(false)
+//                .setPrefetchDistance(5)
+                .setPageSize(5)
+                .build();
+
+        FirestorePagingOptions<Categories> options = new FirestorePagingOptions.Builder<Categories>()
+                .setQuery(queryCategory,config, Categories.class)
+                .build();
+
+        FirestorePagingAdapter<Categories, CategoryCategoryViewHolder> adapter = new FirestorePagingAdapter<Categories, CategoryCategoryViewHolder>(options) {
+            @NonNull
+            @Override
+            protected void onBindViewHolder(@NonNull CategoryCategoryViewHolder holder, int position, @NonNull Categories model) {
+
+                holder.txtCategoryName.setText(model.getCategoryName());
+                Picasso.get().load(model.getCategoryImage()).into(holder.txtCategoryImage);
+
+//                Onclick listener to take the user to the products details
+                holder.itemView.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                Intent intent = new Intent(getContext(), AdminProductsDetailsActivity.class);
+                                intent.putExtra("ProductUniqueID", model.getCategoryUniqueID());
+                                startActivity(intent);
+                            }
+                        }
+                );
+//                Onclick listener to take the user to the products details
+
+            }
+
+            @NonNull
+            @Override
+            public CategoryCategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_category_category_layout, parent, false);
+                CategoryCategoryViewHolder holder = new CategoryCategoryViewHolder(view);
+                return holder;
+            }
+
+            @Override
+            protected void onLoadingStateChanged(@NonNull LoadingState state) {
+                switch (state) {
+                    case LOADING_INITIAL:
+//                        Toast.makeText(AdminProductsActivity.this, "Initial Data Loaded", Toast.LENGTH_SHORT).show();
+//                        progressBar1.setVisibility(View.GONE);
+                        break;
+                    case LOADING_MORE:
+                        // Do your loading animation
+//                        mSwipeRefreshLayout.setRefreshing(true);
+//                        progressBar2.setVisibility(View.VISIBLE);
+                        break;
+
+                    case LOADED:
+                        // Stop Animation
+//                        mSwipeRefreshLayout.setRefreshing(false);
+//                        progressBar2.setVisibility(View.GONE);
+                        break;
+
+                    case FINISHED:
+                        //Reached end of Data set
+//                        mSwipeRefreshLayout.setRefreshing(false);
+//                        Toast.makeText(AdminProductsActivity.this, "Finished", Toast.LENGTH_SHORT).show();
+//                        progressBar2.setVisibility(View.GONE);
+                        break;
+
+                    case ERROR:
+                        retry();
+                        break;
+
+                }
+            }
+
+        };
+
+        recyclerViewCategory.setAdapter(adapter);
+        adapter.startListening();
+//        progressBar1.setVisibility(View.GONE);
+
     }
 }

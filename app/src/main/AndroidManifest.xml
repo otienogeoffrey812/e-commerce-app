@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SlickkWear">
-        <activity android:name=".AdminCategoriesAddEditActivity"></activity>
+        <activity android:name=".UserProductsDetailsActivity"></activity>
+        <activity android:name=".AdminCategoriesAddEditActivity" />
         <activity android:name=".SearchableActivity" />
         <activity android:name=".AdminProductsDetailsActivity" />
         <activity android:name=".AdminOrdersActivity" />

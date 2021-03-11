@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         >
 
         <ImageView
@@ -22,7 +22,7 @@
             android:id="@+id/admin_category_layout_image"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:layout_constraintWidth_percent=".40"
+            app:layout_constraintWidth_percent=".30"
             android:src="@drawable/ic_baseline_insert_photo_24"
             android:scaleType="centerCrop"
             />
@@ -34,7 +34,7 @@
             app:layout_constraintBottom_toTopOf="@+id/admin_category_layout_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent=".60"
+            app:layout_constraintWidth_percent=".70"
             android:id="@+id/admin_category_layout_name"
             android:layout_marginTop="20dp"
             android:paddingVertical="5dp"

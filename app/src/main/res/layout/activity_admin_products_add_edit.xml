@@ -34,6 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_baseline_add_a_photo_24"
         app:layout_constraintHeight_percent=".20"
+        android:scaleType="centerCrop"
         />
 
     <Spinner

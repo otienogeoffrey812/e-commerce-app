@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.SlickkWear" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
+        <item name="android:fontFamily">@font/jacques_francois</item>.
         <item name="colorPrimary">@color/dark_blue</item>
         <item name="colorPrimaryVariant">@color/dark_blue</item>
         <item name="colorOnPrimary">@color/white</item>

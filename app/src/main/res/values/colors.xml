@@ -10,6 +10,6 @@
     <color name="main_color">#03396c</color>
     <color name="dark_blue">#011f4b</color>
     <color name="blue">#0000FF</color>
-    <color name="red">#e51a1a</color>
+    <color name="red">#FF0000</color>
     <color name="faded_black">#565656</color>
 </resources>
