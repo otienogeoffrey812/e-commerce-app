@@ -9,7 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="main_color">#03396c</color>
     <color name="dark_blue">#011f4b</color>
-    <color name="blue">#0000FF</color>
     <color name="red">#FF0000</color>
     <color name="faded_black">#565656</color>
+    <color name="cornflower_blue">#6495ED</color>
+    <color name="cobalt_blue">#0047AB</color>
+    <color name="light_dark_blue">#0e2d5c</color>
 </resources>

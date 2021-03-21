@@ -2,14 +2,22 @@ package com.example.slickkwear;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.smarteist.autoimageslider.SliderView;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,22 +29,85 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore productRef;
     private Query query;
 
+    private EditText search_edit_text;
+    private LinearLayout search_interface;
+    MaterialSearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        productRef = FirebaseFirestore.getInstance();
-        query = productRef.collection("Products");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+//        userSearch();
          bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
          bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserHomeFragment())
                 .commit();
 
+        search_edit_text = (EditText) findViewById(R.id.search_edit_text);
+        search_interface = (LinearLayout) findViewById(R.id.search_interface);
+
+        search_edit_text.setOnFocusChangeListener(
+                new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+
+                        search_interface.setVisibility(View.VISIBLE);
+
+                    }
+                }
+        );
 
 //        homeSliderBanner();
     }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.search_menu, menu);
+//
+//        MenuItem item = menu.findItem(R.id.action_search);
+//        searchView.setMenuItem(item);
+//
+//        return true;
+//    }
+
+//    private void userSearch() {
+//
+//        String[] list = new String[] {"one", "two", "three"};
+//
+////        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+////        searchView.setSuggestions(list);
+//        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                searchView.setSuggestions(list);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                //Do some magic
+//                searchView.setSuggestions(list);
+//                return false;
+//            }
+//        });
+//
+//        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+//            @Override
+//            public void onSearchViewShown() {
+////                searchView.showSuggestions();
+//                //Do some magic
+//            }
+//
+//            @Override
+//            public void onSearchViewClosed() {
+//                //Do some magic
+//            }
+//        });
+//    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,59 +136,4 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-//    private void homeSliderBanner() {
-//
-//        sliderView = findViewById(R.id.imageSlider);
-//
-//        adapter = new SliderHomeAdapter(this);
-//
-//        query.get().addOnSuccessListener(
-//                new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//
-//                        for (QueryDocumentSnapshot result : queryDocumentSnapshots)
-//                        {
-//                            SliderItem sliderItem = new SliderItem();
-//                            sliderItem.setDescription(result.getString("ProductName"));
-//                            sliderItem.setImageUrl(result.getString("ProductImage"));
-//                            adapter.addItem(sliderItem);
-//                        }
-//
-//                    }
-//                }
-//        );
-//
-//        sliderView.setSliderAdapter(adapter);
-//
-//        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-//        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-//        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
-//        sliderView.setIndicatorSelectedColor(Color.WHITE);
-////        sliderView.setIndicatorUnselectedColor(R.attr.colorPrimary);
-//        sliderView.setScrollTimeInSec(3);
-//        sliderView.setAutoCycle(true);
-//        sliderView.startAutoCycle();
-//    }
-//
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        if(item.getItemId() == R.id.bottom_nav_home)
-//        {
-//            Toast.makeText(this, "Home Clicked", Toast.LENGTH_SHORT).show();
-//        }
-//        else if (item.getItemId() == R.id.bottom_nav_category)
-//        {
-//            Toast.makeText(this, "Category Clicked", Toast.LENGTH_SHORT).show();
-//        }
-//        else if (item.getItemId() == R.id.bottom_nav_cart)
-//        {
-//            Toast.makeText(this, "Cart Clicked", Toast.LENGTH_SHORT).show();
-//        }
-//        else if (item.getItemId() == R.id.bottom_nav_account)
-//        {
-//            Toast.makeText(this, "Account Clicked", Toast.LENGTH_SHORT).show();
-//        }
-//        return true;
-//    }
 }

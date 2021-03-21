@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -17,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +45,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -57,6 +62,7 @@ public class UserHomeFragment extends Fragment {
     private RecyclerView recyclerViewCategory, recyclerViewDeals, recyclerViewTrending, recyclerViewProducts;
     private RecyclerView.LayoutManager layoutManagerCategory, layoutManagerDeals, layoutManagerTrending, layoutManagerProducts;
     private View view;
+    MaterialSearchView searchView;
 
     private ProgressBar loadingBar;
 
@@ -71,11 +77,13 @@ public class UserHomeFragment extends Fragment {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_home, container, false);
+
 
         sliderView = view.findViewById(R.id.imageSlider);
 
@@ -83,7 +91,7 @@ public class UserHomeFragment extends Fragment {
         query = productRef.collection("Products");
 
 
-        userSearch();
+//        userSearch();
 
 //        loadingBar = (ProgressBar) view.findViewById(R.id.)
 
@@ -132,31 +140,6 @@ public class UserHomeFragment extends Fragment {
         recyclerViewProducts.setLayoutManager(layoutManagerProducts);
 
         return  view;
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void userSearch() {
-
-        final EditText searchView = view.findViewById(R.id.search);
-        searchView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
-                final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
-
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (searchView.getLeft() - searchView.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width())) {
-                        Toast.makeText(getContext(), "Left Clicked!!", Toast.LENGTH_SHORT).show();
-
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-
     }
 
     private void homeSliderBanner() {
