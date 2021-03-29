@@ -10,7 +10,6 @@
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/toolbar_container"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:background="?colorPrimary"
         android:paddingTop="5dp"
@@ -73,18 +72,18 @@
             android:padding="5dp"
             android:background="?colorPrimary"
             >
-            <EditText
-                android:id="@+id/search_edit_text"
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/search_edittext_bg"
                 android:textColor="?colorPrimary"
-                android:hint="What are you looking for ?"
+                android:text="What are you looking for ?"
+                android:gravity="center_vertical"
                 android:paddingStart="5dp"
                 android:fontFamily="@font/roboto"
-                android:textCursorDrawable="@null"
                 />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -107,14 +106,18 @@
         android:elevation="20dp"
         android:paddingTop="10dp"
         android:clickable="true"
+        android:visibility="gone"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:padding="5dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             >
             <TextView
+                android:id="@+id/search_back_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableStart="@drawable/ic_action_navigation_arrow_back"
@@ -123,7 +126,7 @@
                 />
 
             <EditText
-                android:id="@+id/search_main"
+                android:id="@+id/user_search_input"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -133,9 +136,12 @@
                 android:paddingStart="5dp"
                 android:fontFamily="@font/roboto"
                 android:textCursorDrawable="@null"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 />
 
             <TextView
+                android:id="@+id/user_search_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableStart="@drawable/ic_action_action_search"
@@ -162,6 +168,7 @@
                 android:textSize="16sp"
                 />
 
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -170,11 +177,27 @@
                 android:textSize="16sp"
                 />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="test"
+                android:id="@+id/test123"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/top_searches"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
         </LinearLayout>
     </LinearLayout>
 
 <FrameLayout
     android:layout_marginTop="5dp"
+    android:elevation="15dp"
     android:layout_below="@+id/toolbar_container"
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
@@ -190,7 +213,7 @@
         android:background="@color/white"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="selected"
-        app:elevation="15dp"
+        app:elevation="20dp"
         app:itemRippleColor="@color/white"
         />
 

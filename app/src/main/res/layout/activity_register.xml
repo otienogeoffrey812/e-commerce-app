@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,12 +7,13 @@
     tools:context=".RegisterActivity">
 
     <RelativeLayout
-        android:id="@+id/textView"
+        android:id="@+id/register_top_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        app:layout_constraintBottom_toTopOf="@+id/register_bottom_view"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="?attr/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,17 +22,20 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="REGISTER"
+            android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="25sp" />
     </RelativeLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent=".20" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/register_top_view"
+        android:id="@id/register_bottom_view"
+        android:background="@drawable/view_top_curved_bg"
+        android:layout_marginTop="-30dp"
+        app:layout_constraintTop_toBottomOf="@id/register_top_view"
+        >
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/register_name"
@@ -40,14 +44,13 @@
         android:layout_marginHorizontal="20dp"
         android:drawablePadding="10dp"
         android:hint="Enter your name"
-        app:endIconMode="clear_text"
         android:inputType="text"
         app:boxBackgroundMode="outline"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline1"
+        app:layout_constraintTop_toTopOf="parent"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -58,12 +61,12 @@
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent=".35" />
+        app:layout_constraintGuide_percent=".20" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -73,27 +76,28 @@
         android:layout_marginHorizontal="20dp"
         android:drawablePadding="10dp"
         android:hint="Phone number"
-        app:endIconMode="clear_text"
-        android:inputType="phone"
         app:boxBackgroundMode="outline"
+        app:errorEnabled="true"
+        app:prefixText="+254"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline1"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent=".50" />
+        app:layout_constraintGuide_percent=".35" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/register_password"
@@ -104,27 +108,27 @@
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/purple_700"
         android:hint="Password"
-        android:inputType="textPassword"
         app:boxBackgroundMode="outline"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
+        android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent=".65" />
+        app:layout_constraintGuide_percent=".50" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -136,27 +140,27 @@
         android:hint="Confirm Password"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/purple_700"
-        android:inputType="textPassword"
         app:boxBackgroundMode="outline"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
+        android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent=".75" />
+        app:layout_constraintGuide_percent=".65" />
 
     <Button
         android:id="@+id/register_button"
@@ -165,39 +169,44 @@
         android:layout_marginHorizontal="25dp"
         android:text="REGISTER"
         app:cornerRadius="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent=".80" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent=".85" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            android:layout_marginHorizontal="25dp"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Have an account ?"
+                />
+            <TextView
+                android:id="@+id/register_login_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textColor="?attr/colorPrimary"
+                android:text="@string/register_intent_login_link"
+                android:textStyle="bold"
+                />
 
-    <Button
-        android:id="@+id/editTextText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:text="LOGIN"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent=".70" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

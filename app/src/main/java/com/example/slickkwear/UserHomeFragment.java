@@ -108,7 +108,7 @@ public class UserHomeFragment extends Fragment {
         recyclerViewCategory.setLayoutManager(layoutManagerCategory);
 
 
-        queryDeals = productRef.collection("Products");
+        queryDeals = productRef.collection("Products").limit(3);
 
         recyclerViewDeals = view.findViewById(R.id.recycler_view_today_deals);
         recyclerViewDeals.setHasFixedSize(false);
@@ -216,8 +216,8 @@ public class UserHomeFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
 
-                                Intent intent = new Intent(getContext(), AdminProductsDetailsActivity.class);
-                                intent.putExtra("ProductUniqueID", model.getCategoryUniqueID());
+                                Intent intent = new Intent(getContext(), UserCategoryFragment.class);
+                                intent.putExtra("CategoryUniqueID", model.getCategoryUniqueID());
                                 startActivity(intent);
                             }
                         }

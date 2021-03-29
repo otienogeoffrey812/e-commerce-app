@@ -10,5 +10,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="test_string">Lorem ipsum dolor sit amet, consectetur adip</string>
     <string name="today_deals">Today\'s Deals &#128293;</string>
-
+    <string name="error">Wrong texted</string>
+    <string name="register_intent_login_link"><u>LOGIN</u></string>
+    <string name="verify_resend_code"><u>RESEND</u></string>
+    <string name="received_message">Received Message</string>
 </resources>
