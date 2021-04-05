@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:liftOnScroll="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:background="?colorPrimary"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Slickk Wear"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:background="?colorPrimary"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                >
+                <TextView
+                    android:id="@+id/cart_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_shopping_cart_24"
+                    android:drawableTint="@color/white"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:background="?colorPrimary"
+                    />
+                <TextView
+                    android:id="@+id/cart_main_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/badge_bg"
+                    android:text="0"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:layout_alignRight="@id/cart_main"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/search_container_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:background="?colorPrimary"
+            app:layout_collapseMode="pin"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/search_edittext_bg"
+                android:textColor="?colorPrimary"
+                android:text="What are you looking for ?"
+                android:gravity="center_vertical"
+                android:paddingStart="5dp"
+                android:fontFamily="@font/roboto"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_action_action_search"
+                android:drawableTint="@color/white"
+                style="@style/TextAppearance.MaterialComponents.Button"
+                />
+
+        </LinearLayout>
+
+</com.google.android.material.appbar.AppBarLayout>

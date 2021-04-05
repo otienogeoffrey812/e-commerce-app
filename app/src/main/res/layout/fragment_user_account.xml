@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:layout_marginTop="-100dp"
-    android:elevation="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UserAccountFragment">
 
@@ -89,7 +86,6 @@
                 android:textColor="@color/black"
                 android:drawableTint="@color/black"
                 android:drawablePadding="10dp"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawableStart="@drawable/ic_baseline_favorite_24"
                 />
             <View
@@ -112,7 +108,6 @@
                 android:textColor="@color/black"
                 android:drawableTint="@color/black"
                 android:drawablePadding="10dp"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawableStart="@drawable/ic_baseline_list_24"
                 />
 
@@ -136,7 +131,6 @@
                 android:textColor="@color/black"
                 android:drawableTint="@color/black"
                 android:drawablePadding="10dp"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawableStart="@drawable/ic_baseline_list_24"
                 />
             <View
@@ -159,7 +153,6 @@
                 android:textColor="@color/black"
                 android:drawableTint="@color/black"
                 android:drawablePadding="10dp"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawableStart="@drawable/ic_baseline_list_24"
                 />
 
@@ -183,7 +176,6 @@
                 android:textColor="@color/black"
                 android:drawableTint="@color/black"
                 android:drawablePadding="10dp"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawableStart="@drawable/ic_baseline_directions_bike_24"
                 />
             <View
@@ -206,7 +198,6 @@
                 android:textColor="@color/black"
                 android:drawableTint="@color/black"
                 android:drawablePadding="10dp"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawableStart="@drawable/ic_baseline_admin_panel_settings_24"
                 />
 
@@ -230,7 +221,6 @@
                 android:textColor="@color/black"
                 android:drawableTint="@color/black"
                 android:drawablePadding="10dp"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawableStart="@drawable/ic_baseline_settings_24"
                 />
             <View

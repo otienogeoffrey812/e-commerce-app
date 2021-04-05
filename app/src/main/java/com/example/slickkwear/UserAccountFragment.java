@@ -55,7 +55,7 @@ public class UserAccountFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), PhoneVerificationActivity.class);
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
                         startActivity(intent);
                     }
                 }

@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.slickkwear.Model.Categories;
 import com.example.slickkwear.Model.Products;
 import com.example.slickkwear.Model.SliderItem;
@@ -36,6 +37,8 @@ import com.example.slickkwear.ViewHolder.HomeCategoryViewHolder;
 import com.example.slickkwear.ViewHolder.HomeDealsViewHolder;
 import com.example.slickkwear.ViewHolder.HomeProductsViewHolder;
 import com.example.slickkwear.ViewHolder.HomeTrendingViewHolder;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
@@ -66,6 +69,7 @@ public class UserHomeFragment extends Fragment {
 
     private ProgressBar loadingBar;
 
+    LottieAnimationView lottieAnimationView;
 
     public UserHomeFragment() {
         // Required empty public constructor
@@ -85,6 +89,7 @@ public class UserHomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_user_home, container, false);
 
 
+        lottieAnimationView = view.findViewById(R.id.lottie);
         sliderView = view.findViewById(R.id.imageSlider);
 
         productRef = FirebaseFirestore.getInstance();
@@ -94,6 +99,7 @@ public class UserHomeFragment extends Fragment {
 //        userSearch();
 
 //        loadingBar = (ProgressBar) view.findViewById(R.id.)
+//        getInstrumentation().waitForIdleSync()
 
         homeSliderBanner();
 
@@ -108,7 +114,7 @@ public class UserHomeFragment extends Fragment {
         recyclerViewCategory.setLayoutManager(layoutManagerCategory);
 
 
-        queryDeals = productRef.collection("Products").limit(3);
+        queryDeals = productRef.collection("Products").orderBy("ProductName", Query.Direction.ASCENDING).limit(3);
 
         recyclerViewDeals = view.findViewById(R.id.recycler_view_today_deals);
         recyclerViewDeals.setHasFixedSize(false);
@@ -278,29 +284,22 @@ public class UserHomeFragment extends Fragment {
 
     private void homeDeals() {
 
-        PagedList.Config config = new PagedList.Config.Builder()
-                .setInitialLoadSizeHint(10)
-//                .setEnablePlaceholders(false)
-//                .setPrefetchDistance(5)
-                .setPageSize(5)
+        FirestoreRecyclerOptions<Products> options = new FirestoreRecyclerOptions.Builder<Products>()
+                .setQuery(queryDeals, Products.class)
                 .build();
 
-        FirestorePagingOptions<Products> options = new FirestorePagingOptions.Builder<Products>()
-                .setQuery(queryDeals,config, Products.class)
-                .build();
-
-        FirestorePagingAdapter<Products, HomeDealsViewHolder> adapter = new FirestorePagingAdapter<Products, HomeDealsViewHolder>(options) {
+        FirestoreRecyclerAdapter<Products, HomeDealsViewHolder> adapter = new FirestoreRecyclerAdapter<Products, HomeDealsViewHolder>(options) {
             @NonNull
             @Override
             protected void onBindViewHolder(@NonNull HomeDealsViewHolder holder, int position, @NonNull Products model) {
 
                 holder.txtDealName.setText(model.getProductName());
 
-                String initialPrice = "Ksh" + model.getProductPrice();
+                String initialPrice = "Ksh " + model.getProductPrice();
 //                String text2 = "<strike><font color=\'#757575\'>" + initialPrice + "</font></strike>";
 ////                textview.setText(Html.fromHtml(text));
                 holder.txtDealPriceInitial.setText(Html.fromHtml("<strike><font color=\'#757575\'>" + initialPrice + "</font></strike>"));
-                holder.txtDealPriceDiscounted.setText("Ksh" + model.getProductPrice());
+                holder.txtDealPriceDiscounted.setText("Ksh " + model.getProductPrice());
                 Picasso.get().load(model.getProductImage()).into(holder.txtDealImage);
 
 //                Onclick listener to take the user to the products details
@@ -328,44 +327,9 @@ public class UserHomeFragment extends Fragment {
                 return holder;
             }
 
-            @Override
-            protected void onLoadingStateChanged(@NonNull LoadingState state) {
-                switch (state) {
-                    case LOADING_INITIAL:
-//                        Toast.makeText(AdminProductsActivity.this, "Initial Data Loaded", Toast.LENGTH_SHORT).show();
-//                        progressBar1.setVisibility(View.GONE);
-                        break;
-                    case LOADING_MORE:
-                        // Do your loading animation
-//                        mSwipeRefreshLayout.setRefreshing(true);
-//                        progressBar2.setVisibility(View.VISIBLE);
-                        break;
-
-                    case LOADED:
-                        // Stop Animation
-//                        mSwipeRefreshLayout.setRefreshing(false);
-//                        progressBar2.setVisibility(View.GONE);
-                        break;
-
-                    case FINISHED:
-                        //Reached end of Data set
-//                        mSwipeRefreshLayout.setRefreshing(false);
-//                        Toast.makeText(AdminProductsActivity.this, "Finished", Toast.LENGTH_SHORT).show();
-//                        progressBar2.setVisibility(View.GONE);
-                        break;
-
-                    case ERROR:
-                        retry();
-                        break;
-
-                }
-            }
-
         };
-
         recyclerViewDeals.setAdapter(adapter);
         adapter.startListening();
-//        progressBar1.setVisibility(View.GONE);
     }
 
     private void homeTrending(){
@@ -387,7 +351,7 @@ public class UserHomeFragment extends Fragment {
             protected void onBindViewHolder(@NonNull HomeTrendingViewHolder holder, int position, @NonNull Products model) {
 
                 holder.txtTrendingName.setText(model.getProductName());
-                holder.txtTrendingPrice.setText("Ksh" + model.getProductPrice());
+                holder.txtTrendingPrice.setText("Ksh " + model.getProductPrice());
                 Picasso.get().load(model.getProductImage()).into(holder.txtTrendingImage);
 
 //                Onclick listener to take the user to the products details
@@ -474,7 +438,7 @@ public class UserHomeFragment extends Fragment {
             protected void onBindViewHolder(@NonNull HomeProductsViewHolder holder, int position, @NonNull Products model) {
 
                 holder.txtProductsName.setText(model.getProductName());
-                holder.txtProductsPrice.setText("Ksh" + model.getProductPrice());
+                holder.txtProductsPrice.setText("Ksh " + model.getProductPrice());
                 Picasso.get().load(model.getProductImage()).into(holder.txtProductsImage);
 
 //                Onclick listener to take the user to the products details
@@ -541,4 +505,6 @@ public class UserHomeFragment extends Fragment {
         adapter.startListening();
 //        progressBar1.setVisibility(View.GONE);
     }
+
+
 }

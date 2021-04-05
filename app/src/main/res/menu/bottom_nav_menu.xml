@@ -8,17 +8,17 @@
         />
     <item android:title="Category"
         android:id="@+id/bottom_nav_category"
-        android:icon="@drawable/ic_baseline_category_24"
+        android:icon="@drawable/category_icon_tint"
         android:iconTint="?attr/colorPrimary"
         />
-    <item android:title="Cart"
-        android:id="@+id/bottom_nav_cart"
-        android:icon="@drawable/ic_baseline_shopping_cart_24"
+    <item android:title="Help"
+        android:id="@+id/bottom_nav_help"
+        android:icon="@drawable/help_icon_tint"
         android:iconTint="?attr/colorPrimary"
         />
     <item android:title="Account"
         android:id="@+id/bottom_nav_account"
-        android:icon="@drawable/ic_baseline_person_24"
+        android:icon="@drawable/account_icon_tint"
         android:iconTint="?attr/colorPrimary"
         />
 

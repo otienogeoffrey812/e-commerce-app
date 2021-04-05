@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PhoneVerificationActivity">
+    tools:context=".ResetCodeActivity">
 
     <RelativeLayout
-        android:id="@+id/register_top_view"
+        android:id="@+id/forgot_password_top_view"
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/register_bottom_view"
+        app:layout_constraintBottom_toTopOf="@+id/forgot_password_bottom_view"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="?attr/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,37 +21,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="VERIFY"
+            android:text="RESET CODE"
             android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="20sp" />
+
     </RelativeLayout>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/forgot_password_bottom_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/register_top_view"
-        android:id="@id/register_bottom_view"
-        android:background="@drawable/view_top_curved_bg"
+        android:layout_below="@+id/forgot_password_top_view"
         android:layout_marginTop="-30dp"
-        app:layout_constraintTop_toBottomOf="@id/register_top_view"
-        >
+        android:background="@drawable/view_top_curved_bg"
+        app:layout_constraintTop_toBottomOf="@id/forgot_password_top_view">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline00"
+            android:id="@+id/guideline0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="20dp"
-            app:layout_constraintGuide_percent=".05" />
+            app:layout_constraintGuide_percent=".05"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline00"
-            app:layout_constraintBottom_toTopOf="@+id/guideline0"
+            app:layout_constraintTop_toTopOf="@+id/guideline0"
+            app:layout_constraintBottom_toTopOf="@+id/guideline1"
             android:orientation="vertical"
             android:layout_marginHorizontal="20dp"
             >
@@ -63,7 +65,7 @@
                 />
 
             <TextView
-                android:id="@+id/phone_number_veirfy_code_sent"
+                android:id="@+id/phone_number_reset_code_sent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -75,12 +77,12 @@
         </LinearLayout>
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline0"
+            android:id="@+id/guideline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="20dp"
-            app:layout_constraintGuide_percent=".20" />
+            app:layout_constraintGuide_percent=".15" />
 
         <LinearLayout
             android:id="@+id/register_name"
@@ -88,10 +90,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/guideline1"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline0"
+            app:layout_constraintTop_toTopOf="@+id/guideline1"
             android:gravity="center"
             >
 
@@ -102,10 +104,6 @@
                 app:passwordToggleTint="@color/purple_700"
                 app:boxBackgroundMode="outline"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline3"
                 android:layout_marginRight="5dp"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -123,10 +121,6 @@
                 app:passwordToggleTint="@color/purple_700"
                 app:boxBackgroundMode="outline"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline3"
                 android:layout_marginRight="5dp"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -144,10 +138,6 @@
                 app:passwordToggleTint="@color/purple_700"
                 app:boxBackgroundMode="outline"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline3"
                 android:layout_marginRight="5dp"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -165,10 +155,6 @@
                 app:passwordToggleTint="@color/purple_700"
                 app:boxBackgroundMode="outline"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline3"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -182,39 +168,39 @@
         </LinearLayout>
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="20dp"
-            app:layout_constraintGuide_percent=".40" />
-
-        <Button
-            android:id="@+id/verification_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:text="VERIFY"
-            app:cornerRadius="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline1" />
-
-        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="20dp"
-            app:layout_constraintGuide_percent=".55" />
+            app:layout_constraintGuide_percent=".30" />
+
+        <Button
+            android:id="@+id/reset_code_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:text="SUBMIT"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent=".45" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
             android:layout_marginHorizontal="25dp"
             android:orientation="horizontal"
             >
@@ -244,6 +230,7 @@
                 />
 
         </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -24,6 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -38,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseFirestore userRef;
     private String  saveCurrentDate, saveCurrentTime;
     private TextView loginLink;
+    private String generatedPassword, userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                         else if ((charSequence.toString().startsWith("0") && charSequence.toString().length() == 10) || charSequence.toString().length() > 9 || charSequence.toString().length() < 9)
                         {
-                            registerPhone.setError("Number format: 705457901");
+                            registerPhone.setError("Number format: 705...");
                         }
                         else {
                             registerPhone.setError(null);
@@ -229,7 +232,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else if (phone.startsWith("0") || phone.length() > 9 || phone.length() < 9)
         {
-            registerPhone.setError("Phone Number format: 705457901");
+            registerPhone.setError("Phone Number format: 705...");
         }
         else if (TextUtils.isEmpty(password))
         {
@@ -253,7 +256,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else {
             loadingBar.setTitle("Creating Account");
-            loadingBar.setMessage("Please wait, account is being created...");
+            loadingBar.setMessage("Please wait...");
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
 
@@ -268,7 +271,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void registerUser(String name, String phone, String password) {
 
-        String userID = "254" + phone;
+        userID = "254" + phone;
 
         userRef.collection("Users").document(userID).get().addOnSuccessListener(
                 new OnSuccessListener<DocumentSnapshot>() {
@@ -303,12 +306,14 @@ public class RegisterActivity extends AppCompatActivity {
         Random rand = new Random();
         String OTP = String.format("%04d", rand.nextInt(10000));
 
+        passWordHash(password);
+
 
         HashMap<String, Object> productMap = new HashMap<>();
         productMap.put("UseID", userID);
         productMap.put("UserName", name);
         productMap.put("UserPhoneNumber", userID);
-        productMap.put("UserPassword", password);
+        productMap.put("UserPassword", generatedPassword);
         productMap.put("UserOTP", OTP);
         productMap.put("UserStatus", "active");
         productMap.put("UserVerified", "false");
@@ -346,7 +351,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 loadingBar.dismiss();
                                 Intent intent = new Intent(getApplicationContext(), PhoneVerificationActivity.class);
-//                                intent.putExtra("phoneNo", phone);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra("userID", userID);
                                 startActivity(intent);
                             }
                         }
@@ -360,6 +366,32 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         }
                 );
+    }
+
+    private void passWordHash(String password) {
+        String passwordToHash = password;
+        generatedPassword = null;
+        try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(passwordToHash.getBytes());
+            //Get the hash's bytes
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }

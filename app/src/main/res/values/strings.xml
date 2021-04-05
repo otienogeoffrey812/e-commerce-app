@@ -12,6 +12,8 @@
     <string name="today_deals">Today\'s Deals &#128293;</string>
     <string name="error">Wrong texted</string>
     <string name="register_intent_login_link"><u>LOGIN</u></string>
+    <string name="login_register_link"><u>REGISTER</u></string>
+    <string name="forgot_password"><u>FORGOT PASSWORD ?</u></string>
     <string name="verify_resend_code"><u>RESEND</u></string>
     <string name="received_message">Received Message</string>
 </resources>

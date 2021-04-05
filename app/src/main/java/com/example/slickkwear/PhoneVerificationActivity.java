@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -38,7 +41,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.internal.$Gson$Types;
 
+import org.w3c.dom.Text;
+
+import java.io.IOException;
+import java.util.LongSummaryStatistics;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,10 +58,11 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
     private TextInputLayout verify1, verify2, verify3, verify4;
     private Button verificationButtton;
-    private TextView textViewMessage;;
-    String phoneNo;
+    private TextView resend_OTP1, resend_otp_counter1, phone_number_verify_code_sent;
+    String userID;
     String mVerificationId;
     FirebaseAuth mAuth;
+    FirebaseFirestore userRef;
 
     private static final int REQ_USER_CONSENT = 200;
 //    private static final int READ_SMS = 200;
@@ -61,10 +73,15 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_verification);
 
+        userRef = FirebaseFirestore.getInstance();
+
         verify1 = (TextInputLayout) findViewById(R.id.verify_1);
         verify2 = (TextInputLayout) findViewById(R.id.verify_2);
         verify3 = (TextInputLayout) findViewById(R.id.verify_3);
         verify4 = (TextInputLayout) findViewById(R.id.verify_4);
+
+        resend_OTP1 = (TextView) findViewById(R.id.resend_OTP);
+        resend_otp_counter1 = (TextView) findViewById(R.id.resend_OTP_counter);
 
         verificationButtton = (Button) findViewById(R.id.verification_button);
         verificationButtton.setOnClickListener(
@@ -76,15 +93,106 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 }
         );
 
+        phone_number_verify_code_sent = (TextView) findViewById(R.id.phone_number_veirfy_code_sent);
+
 //        checkPermission(
 //                Manifest.permission.READ_SMS,
 //                READ_SMS);
 
-//        phoneNo = "+254"+getIntent().getStringExtra("phoneNo");
+        userID = getIntent().getStringExtra("userID");
+        phone_number_verify_code_sent.setText("+" + userID);
 
 //        mAuth= FirebaseAuth.getInstance();
         startSmsUserConsent();
+
         verificationCode();
+
+        resend_OTP_counter();
+        resend_OTP();
+    }
+
+    private void resend_OTP() {
+        resend_OTP1.setOnClickListener(
+            new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Random rand = new Random();
+            String resent_OTP = String.format("%04d", rand.nextInt(10000));
+
+            userRef.collection("Users").document(userID).update("UserOTP", resent_OTP)
+                .addOnSuccessListener(
+                    new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    String baseUrl = "https://mysms.celcomafrica.com/api/services/sendsms/";
+                                    int partnerId = 2881; // your ID here
+                                    String apiKey = "d72d2587d85c517381ca0daa34ff4c9c"; // your API key
+                                    String shortCode = "CELCOM_SMS"; // sender ID here e.g INFOTEXT, Celcom, e.t.c
+
+                                    SmsGateway gateway = new SmsGateway(baseUrl, partnerId, apiKey, shortCode);
+
+                                    String[] strings = {userID};
+                                    String user_msg = resent_OTP + ": is your Verification Code for Slickk Wear App.";
+
+                                    try {
+                                        String res = gateway.sendBulkSms(user_msg, strings);
+                                        System.out.println(res);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }).start();
+
+
+                            startSmsUserConsent();
+
+                            resend_OTP1.setVisibility(View.GONE);
+                            resend_otp_counter1.setVisibility(View.VISIBLE);
+
+                            new CountDownTimer(30000, 1000) {
+
+                                public void onTick(long millisUntilFinished) {
+                                    resend_otp_counter1.setText("" + millisUntilFinished / 1000);
+                                }
+
+                                public void onFinish() {
+                                    resend_otp_counter1.setVisibility(View.GONE);
+                                    resend_OTP1.setVisibility(View.VISIBLE);
+                                }
+                            }.start();
+
+                            Toast.makeText(PhoneVerificationActivity.this, "OTP has been resent!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                );
+                }
+            }
+        );
+    }
+
+    private void resend_OTP_counter() {
+
+        new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                resend_otp_counter1.setText("" + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+//                resend_otp_counter1.setText("done!");
+                resend_otp_counter1.setVisibility(View.GONE);
+                resend_OTP1.setVisibility(View.VISIBLE);
+            }
+        }.start();
+
+
     }
 
 
@@ -156,7 +264,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 //That gives all message to us.
                 // We need to get the code from inside with regex
                 String message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 //                textViewMessage.setText(
 //                        String.format("%s - %s", getString(R.string.received_message), message));
 
@@ -350,7 +458,36 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         
         if (!TextUtils.isEmpty(v1) && !TextUtils.isEmpty(v2) && !TextUtils.isEmpty(v3) && !TextUtils.isEmpty(v4))
         {
-            Toast.makeText(this, "Ok", Toast.LENGTH_SHORT).show();
+            String OTP_Merged = v1+v2+v3+v4;
+
+            userRef.collection("Users").document(userID).get().addOnSuccessListener(
+                    new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                            if(documentSnapshot.exists()) {
+                                if (OTP_Merged.equals(documentSnapshot.getString("UserOTP"))) {
+                                    userRef.collection("Users").document(userID).update("UserVerified", "true").addOnSuccessListener(
+                                            new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(PhoneVerificationActivity.this, "Verification successful!", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                    );
+                                } else {
+                                    Toast.makeText(PhoneVerificationActivity.this, "Incorrect OTP!!", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                        }
+                    }
+            );
+
         }
 
     }

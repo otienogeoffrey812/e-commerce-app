@@ -68,4 +68,8 @@ dependencies {
 //    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
 
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+
+    implementation 'io.paperdb:paperdb:2.7.1'
+
+    implementation 'com.airbnb.android:lottie:3.7.0'
 }

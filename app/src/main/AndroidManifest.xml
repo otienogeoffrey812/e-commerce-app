@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.slickkwear">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_launcher_logo"
@@ -14,7 +9,10 @@
         android:roundIcon="@drawable/app_launcher_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.SlickkWear">
-        <activity android:name=".UserProductsDetailsActivity"/>
+        <activity android:name=".ResetPasswordActivity"></activity>
+        <activity android:name=".ResetCodeActivity" />
+        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".UserProductsDetailsActivity" />
         <activity android:name=".AdminCategoriesAddEditActivity" />
         <activity android:name=".SearchableActivity" />
         <activity android:name=".AdminProductsDetailsActivity" />
@@ -32,8 +30,8 @@
         <activity android:name=".PhoneVerificationActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,15 +40,20 @@
             </intent-filter>
         </activity>
 
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
         <receiver android:name=".SmsBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
     </application>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+    <uses-permission android:name="android.permission.READ_SMS" />
 
 </manifest>
