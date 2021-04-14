@@ -7,55 +7,55 @@
     app:liftOnScroll="true">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:background="?colorPrimary"
-            >
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="Slickk Wear"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_weight="1"
-                android:background="?colorPrimary"
-                android:textColor="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                />
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                >
-                <TextView
-                    android:id="@+id/cart_main"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_baseline_shopping_cart_24"
-                    android:drawableTint="@color/white"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:background="?colorPrimary"
-                    />
-                <TextView
-                    android:id="@+id/cart_main_badge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/badge_bg"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:fontFamily="@font/roboto"
-                    android:gravity="center"
-                    android:layout_alignRight="@id/cart_main"
-                    android:textColor="@color/white" />
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_scrollFlags="scroll|enterAlways"-->
+<!--            android:background="?colorPrimary"-->
+<!--            >-->
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:text="Slickk Wear"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="?colorPrimary"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                />-->
+<!--            <RelativeLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                >-->
+<!--                <TextView-->
+<!--                    android:id="@+id/cart_main"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:drawableStart="@drawable/ic_baseline_shopping_cart_24"-->
+<!--                    android:drawableTint="@color/white"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_alignParentLeft="true"-->
+<!--                    android:background="?colorPrimary"-->
+<!--                    />-->
+<!--                <TextView-->
+<!--                    android:id="@+id/cart_main_badge"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/badge_bg"-->
+<!--                    android:text="0"-->
+<!--                    android:textSize="10sp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_alignRight="@id/cart_main"-->
+<!--                    android:textColor="@color/white" />-->
 
-            </RelativeLayout>
+<!--            </RelativeLayout>-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/search_container_layout"
@@ -67,6 +67,15 @@
             app:layout_collapseMode="pin"
             >
             <TextView
+                android:id="@+id/search_view_back_to_prev_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:drawableTint="@color/white"
+                android:visibility="gone"
+                android:clickable="true"
+                app:drawableStartCompat="@drawable/ic_baseline_arrow_back_ios_24" />
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -75,7 +84,6 @@
                 android:text="What are you looking for ?"
                 android:gravity="center_vertical"
                 android:paddingStart="5dp"
-                android:fontFamily="@font/roboto"
                 />
 
             <TextView

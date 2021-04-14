@@ -2,20 +2,27 @@ package com.example.slickkwear;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,6 +50,7 @@ import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -53,6 +61,13 @@ import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnima
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class UserHomeFragment extends Fragment {
 
@@ -65,7 +80,8 @@ public class UserHomeFragment extends Fragment {
     private RecyclerView recyclerViewCategory, recyclerViewDeals, recyclerViewTrending, recyclerViewProducts;
     private RecyclerView.LayoutManager layoutManagerCategory, layoutManagerDeals, layoutManagerTrending, layoutManagerProducts;
     private View view;
-    MaterialSearchView searchView;
+    private MaterialSearchView searchView;
+    private ConstraintLayout main_loading_bar;
 
     private ProgressBar loadingBar;
 
@@ -88,6 +104,12 @@ public class UserHomeFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_home, container, false);
 
+//        userSearch();
+
+//        loadingBar = (ProgressBar) view.findViewById(R.id.)
+//        getInstrumentation().waitForIdleSync()
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
         lottieAnimationView = view.findViewById(R.id.lottie);
         sliderView = view.findViewById(R.id.imageSlider);
@@ -95,13 +117,18 @@ public class UserHomeFragment extends Fragment {
         productRef = FirebaseFirestore.getInstance();
         query = productRef.collection("Products");
 
-
-//        userSearch();
-
-//        loadingBar = (ProgressBar) view.findViewById(R.id.)
-//        getInstrumentation().waitForIdleSync()
+        main_loading_bar = (ConstraintLayout) view.findViewById(R.id.main_loading_bar);
 
         homeSliderBanner();
+
+
+        doStuffOnBackground();
+
+
+        return  view;
+    }
+
+    private void doStuffOnBackground() {
 
         queryCategory = productRef.collection("Categories");
 
@@ -113,6 +140,7 @@ public class UserHomeFragment extends Fragment {
         layoutManagerCategory = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerViewCategory.setLayoutManager(layoutManagerCategory);
 
+        homeCategory();
 
         queryDeals = productRef.collection("Products").orderBy("ProductName", Query.Direction.ASCENDING).limit(3);
 
@@ -123,6 +151,8 @@ public class UserHomeFragment extends Fragment {
 //        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         layoutManagerDeals = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerViewDeals.setLayoutManager(layoutManagerDeals);
+
+        homeDeals();
 
 
         queryTrending = productRef.collection("Products");
@@ -135,6 +165,8 @@ public class UserHomeFragment extends Fragment {
         layoutManagerTrending = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerViewTrending.setLayoutManager(layoutManagerTrending);
 
+        homeTrending();
+
         queryProducts = productRef.collection("Products");
 
         recyclerViewProducts = view.findViewById(R.id.recycler_view_home_products);
@@ -145,8 +177,10 @@ public class UserHomeFragment extends Fragment {
         layoutManagerProducts = new GridLayoutManager(getContext(), 2);
         recyclerViewProducts.setLayoutManager(layoutManagerProducts);
 
-        return  view;
+        homeProducts();
+
     }
+
 
     private void homeSliderBanner() {
 
@@ -181,18 +215,20 @@ public class UserHomeFragment extends Fragment {
     }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        homeCategory();
-
-        homeDeals();
+//    @Override
+//    public void onStart() {
+//        super.onStart();
 //
-        homeTrending();
+//        main_loading_bar.setVisibility(View.GONE);
 
-        homeProducts();
-    }
+//        homeCategory();
+//
+//        homeDeals();
+////
+//        homeTrending();
+//
+//        homeProducts();
+//    }
 
 
     private void homeCategory() {
@@ -222,9 +258,19 @@ public class UserHomeFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
 
-                                Intent intent = new Intent(getContext(), UserCategoryFragment.class);
-                                intent.putExtra("CategoryUniqueID", model.getCategoryUniqueID());
-                                startActivity(intent);
+                                UserCategoryProductsFragment x = new UserCategoryProductsFragment();
+                                Bundle args = new Bundle();
+                                args.putString("categoryUniqueID", model.getCategoryUniqueID());
+                                x.setArguments(args);
+
+                                getActivity().getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.fragment_container, x)
+                                        .addToBackStack("") //To go back to previous fragment
+                                        .commit();
+
+//                                Intent intent = new Intent(getContext(), UserCategoryFragment.class);
+////                                intent.putExtra("CategoryUniqueID", model.getCategoryUniqueID());
+//                                startActivity(intent);
                             }
                         }
                 );
@@ -419,6 +465,7 @@ public class UserHomeFragment extends Fragment {
 //        progressBar1.setVisibility(View.GONE);
     }
 
+
     private void homeProducts(){
 
         PagedList.Config config = new PagedList.Config.Builder()
@@ -448,7 +495,7 @@ public class UserHomeFragment extends Fragment {
                             public void onClick(View view) {
 
                                 Intent intent = new Intent(getContext(), UserProductsDetailsActivity.class);
-                                intent.putExtra("ProductUniqueID", model.getProductUniqueID());
+                                intent.putExtra("productUniqueID", model.getProductUniqueID());
                                 startActivity(intent);
                             }
                         }
@@ -470,8 +517,9 @@ public class UserHomeFragment extends Fragment {
             protected void onLoadingStateChanged(@NonNull LoadingState state) {
                 switch (state) {
                     case LOADING_INITIAL:
-//                        Toast.makeText(AdminProductsActivity.this, "Initial Data Loaded", Toast.LENGTH_SHORT).show();
+                        main_loading_bar.setVisibility(View.GONE);
 //                        progressBar1.setVisibility(View.GONE);
+//                        main_loading_bar.setVisibility(View.GONE);
                         break;
                     case LOADING_MORE:
                         // Do your loading animation
@@ -507,4 +555,15 @@ public class UserHomeFragment extends Fragment {
     }
 
 
+
+//    public interface OnBackPressed {
+//        void onBackPressed();
+//    }
+
+//    public void onBackPressed() {
+//
+//    }
+//public boolean onBackPressed() {
+//    return false;
+//}
 }

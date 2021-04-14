@@ -1,13 +1,18 @@
 package com.example.slickkwear;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -19,7 +24,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.slickkwear.Prevalent.Prevalent;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.api.BackendRule;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -39,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView search_back_icon;
     private EditText user_search_input;
     private LinearLayout search_interface, search_container_layout;
-    MaterialSearchView searchView;
+    private MaterialSearchView searchView;
+
+    private View notificationBadge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +62,20 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 //        userSearch();
-         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
-         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+
+//        SETTING UP BOTTOM NAVIGATION BAR
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserHomeFragment())
                 .commit();
+
+        bottomNavigationView=findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.getOrCreateBadge(R.id.bottom_nav_cart).setVisible(true);
+        bottomNavigationView.getOrCreateBadge(R.id.bottom_nav_cart).setNumber(Prevalent.CartItems);
+//        bottomNavigationView.getOrCreateBadge(R.id.bottom_nav_help).setVisible(true);
+//        bottomNavigationView.getOrCreateBadge(R.id.bottom_nav_help).setNumber(0);
+
 //
 //
 //        user_search_input = (EditText) findViewById(R.id.user_search_input);
@@ -184,17 +206,54 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.bottom_nav_category:
                     selectedFragment = new UserCategoryFragment();
                     break;
-                case R.id.bottom_nav_help:
+                case R.id.bottom_nav_cart:
                     selectedFragment = new UserCartFragment();
+                    break;
+                case R.id.bottom_nav_help:
+                    selectedFragment = new UserHelpFragment();
                     break;
                 case R.id.bottom_nav_account:
                     selectedFragment = new UserAccountFragment();
                     break;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment)
-                    .commit();
+//            getSupportFragmentManager()
+//                    .set
+//
+//                    .beginTransaction().replace(R.id.fragment_container, selectedFragment)
+//                    .commit();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+            transaction.replace(R.id.fragment_container, selectedFragment);
+            transaction.commit();
+
             return true;
         }
     };
+
+    @Override
+    public void onBackPressed() {
+
+        if (getSupportFragmentManager()
+                .getBackStackEntryCount() > 0) {
+
+            super.onBackPressed();
+
+        } else {
+
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.app_name))
+                    .setMessage("Are you sure you want to exit?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            finish();
+                            System.exit(0);
+
+                        }
+                    }).setNegativeButton("No", null).show();
+
+        }
+    }
 
 }

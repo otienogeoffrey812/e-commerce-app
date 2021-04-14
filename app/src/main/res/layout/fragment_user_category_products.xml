@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UserCategoryProductsFragment">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+
+        <include layout="@layout/user_appbar_layout"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp"
+            android:paddingVertical="7dp"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:id="@+id/category_products_sort_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Most Popular"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:drawableTint="@color/black"
+                app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:drawableStartCompat="@drawable/ic_baseline_grid_24"
+                app:drawableTint="@color/black"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:drawableStartCompat="@drawable/ic_outline_filter_alt_24"
+                app:drawableTint="@color/black"
+                android:drawablePadding="2dp"
+                android:text="Filter"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            >
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="15dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="5dp"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/category_products_recyclerview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="none"
+                            />
+
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+        </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                >-->
+
+<!--            </LinearLayout>-->
+            <LinearLayout
+                android:id="@+id/translucent_layout_sort"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/category_products_sort_layout"
+                android:background="#FF555555"
+                android:alpha="0.7"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/category_products_sort_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:elevation="30dp"
+                android:clickable="true"
+                android:paddingBottom="20dp"
+                android:visibility="gone"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sort by"
+                    android:textStyle="bold"
+                    android:paddingVertical="10dp"
+                    android:paddingStart="20dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DCDCDC"
+                    />
+
+                <TextView
+                    android:id="@+id/category_products_most_popular_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Most Popular"
+                    android:paddingVertical="10dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    app:drawableEndCompat="@drawable/ic_baseline_check_24"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DCDCDC"
+                    />
+
+                <TextView
+                    android:id="@+id/category_products_latest_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Latest"
+                    android:paddingVertical="10dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DCDCDC"
+                    />
+
+                <TextView
+                    android:id="@+id/category_products_best_rating_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Best Rating"
+                    android:paddingVertical="10dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DCDCDC"
+                    />
+
+                <TextView
+                    android:id="@+id/category_products_lowest_price_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lowest Price"
+                    android:paddingVertical="10dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DCDCDC"
+                    />
+
+                <TextView
+                    android:id="@+id/category_products_highest_price_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Highest Price"
+                    android:paddingVertical="10dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DCDCDC"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>

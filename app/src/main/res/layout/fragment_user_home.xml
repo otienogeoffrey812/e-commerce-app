@@ -29,6 +29,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
+
         <androidx.cardview.widget.CardView
             android:id="@+id/banner_slider_card"
             android:layout_width="match_parent"
