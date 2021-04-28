@@ -1,12 +1,13 @@
 package com.example.slickkwear.Model;
 
 public class Products {
-    private String ProductUniqueID, ProductName, ProductPrice, ProductDescription, ProductImage, ProductCategory, ProductStatus, DateCreated, TimeCreated;
+    private String ProductUniqueID, ProductName,  ProductDescription, ProductImage, ProductCategory, ProductStatus, DateCreated, TimeCreated;
+    private int ProductPrice;
 
     public Products() {
     }
 
-    public Products(String productUniqueID, String productName, String productPrice, String productDescription, String productImage, String productCategory, String productStatus, String dateCreated, String timeCreated) {
+    public Products(String productUniqueID, String productName, int productPrice, String productDescription, String productImage, String productCategory, String productStatus, String dateCreated, String timeCreated) {
         ProductUniqueID = productUniqueID;
         ProductName = productName;
         ProductPrice = productPrice;
@@ -34,11 +35,11 @@ public class Products {
         ProductName = productName;
     }
 
-    public String getProductPrice() {
+    public int getProductPrice() {
         return ProductPrice;
     }
 
-    public void setProductPrice(String productPrice) {
+    public void setProductPrice(int productPrice) {
         ProductPrice = productPrice;
     }
 

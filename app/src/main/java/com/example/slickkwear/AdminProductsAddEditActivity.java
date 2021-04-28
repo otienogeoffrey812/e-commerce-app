@@ -50,7 +50,7 @@ public class AdminProductsAddEditActivity extends AppCompatActivity {
     private Spinner addProductCategory;
     private ProgressDialog loadingBar;
 
-    private String productUniqueID, saveCurrentDate, saveCurrentTime, productName, productPrice, productDescription, productCategoryID;
+    private String productUniqueID, saveCurrentDate, saveCurrentTime,productPrice, productName, productDescription, productCategoryID;
     private String downloadImageUrl;
 
     private static final int GalleryPick = 1;
@@ -280,13 +280,14 @@ public class AdminProductsAddEditActivity extends AppCompatActivity {
     }
 
     private void saveProductInfoToDatabase() {
+        int new_ProductPrice = Integer.parseInt(productPrice);
         HashMap<String, Object> productMap = new HashMap<>();
         productMap.put("ProductUniqueID", productUniqueID);
         productMap.put("DateCreated", saveCurrentDate);
         productMap.put("TimeCreated", saveCurrentTime);
         productMap.put("ProductName", productName);
         productMap.put("ProductImage", downloadImageUrl);
-        productMap.put("ProductPrice", productPrice);
+        productMap.put("ProductPrice", new_ProductPrice);
         productMap.put("ProductDescription", productDescription);
         productMap.put("ProductCategory", productCategoryID);
         productMap.put("ProductStatus", "active");

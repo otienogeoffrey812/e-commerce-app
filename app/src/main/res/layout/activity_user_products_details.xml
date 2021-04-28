@@ -22,47 +22,106 @@
             />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <LinearLayout
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/ic_baseline_add_a_photo_24"
-        android:id="@+id/user_product_details_image"
-        android:scaleType="centerCrop"
-        />
-
-    <com.google.android.material.textview.MaterialTextView
-        app:layout_constraintTop_toBottomOf="@+id/user_product_details_image"
-        android:id="@+id/user_product_details_name"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Product Name"
-        android:gravity="center"
-        android:padding="5dp"
-        android:layout_margin="10dp"
-        />
+        android:orientation="vertical"
+        >
 
-    <com.google.android.material.textview.MaterialTextView
-        app:layout_constraintTop_toBottomOf="@+id/user_product_details_name"
-        android:id="@+id/user_product_details_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Product Price"
-        android:gravity="center"
-        android:padding="5dp"
-        android:layout_margin="10dp"
-        />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/user_product_details_image"
+            android:scaleType="centerCrop"
+            />
 
-    <com.google.android.material.textview.MaterialTextView
-        app:layout_constraintTop_toBottomOf="@+id/user_product_details_price"
-        android:id="@+id/user_product_details_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Product Description"
-        android:gravity="center"
-        android:padding="5dp"
-        android:layout_margin="10dp"
-        />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/user_product_details_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Product Name"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_margin="10dp"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/user_product_details_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Product Price"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PRODUCT SIZE:"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="5dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/black"
+                />
+
+            <LinearLayout
+                android:id="@+id/user_product_details_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="20dp"
+                android:gravity="center"
+                >
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            >
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PRODUCT DETAILS"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:padding="5dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_product_details_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:padding="5dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
     <com.google.android.material.button.MaterialButton
         app:layout_constraintBottom_toBottomOf="parent"

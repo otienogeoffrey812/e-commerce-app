@@ -50,15 +50,18 @@
                 android:layout_weight="1"
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:drawableStartCompat="@drawable/ic_baseline_grid_24"
-                app:drawableTint="@color/black"
-                android:layout_marginEnd="20dp"
-                android:gravity="center"/>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:drawableStartCompat="@drawable/ic_baseline_grid_24"-->
+<!--                android:id="@+id/category_products_change_layout_btn"-->
+<!--                app:drawableTint="@color/black"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:clickable="true"-->
+<!--                android:gravity="center"/>-->
 
             <TextView
+                android:id="@+id/category_products_filter_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:drawableStartCompat="@drawable/ic_outline_filter_alt_24"
@@ -100,9 +103,43 @@
 
                     </RelativeLayout>
 
+
                 </com.google.android.material.card.MaterialCardView>
 
         </androidx.core.widget.NestedScrollView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/category_products_null_products_layout"
+                android:gravity="center"
+                android:visibility="gone"
+                >
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/category_products_empty_animation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:tint="?attr/colorPrimary"
+                    app:lottie_rawRes="@raw/empty_products_animation2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/category_products_empty_animation"
+                    android:text="No products found"
+                    android:gravity="center"
+                    android:textColor="?attr/colorPrimary"
+                    />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
 
@@ -116,7 +153,6 @@
                 android:id="@+id/translucent_layout_sort"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/category_products_sort_layout"
                 android:background="#FF555555"
                 android:alpha="0.7"
                 android:orientation="vertical"
@@ -234,6 +270,141 @@
                     />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/translucent_layout_filter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FF555555"
+                android:alpha="0.7"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:visibility="gone"
+                >
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/category_products_filter_layout"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@color/white"
+                android:clickable="true"
+                android:visibility="gone"
+                >
+                <TextView
+                    android:id="@+id/filter_top_view"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Filter by:"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:paddingVertical="10dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    />
+
+                <View
+                    android:id="@+id/filter_top_line"
+                    android:layout_below="@id/filter_top_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DCDCDC"
+                    />
+
+                <LinearLayout
+                    android:layout_below="@+id/filter_top_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="50dp"
+                    android:paddingHorizontal="5dp"
+                    >
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/category_products_filter_min"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Min"
+                    app:boxBackgroundMode="outline"
+                    app:errorEnabled="true"
+                    android:gravity="center_vertical"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="3dp"
+                        android:background="@color/black"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="5dp"
+                        />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/category_products_filter_max"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Max"
+                        android:layout_weight="1"
+                        app:boxBackgroundMode="outline"
+                        app:errorEnabled="true"
+                        android:layout_gravity="center_vertical"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <Button
+                        android:id="@+id/category_products_filter_reset_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Reset"
+                        android:background="@drawable/filter_btn_bg"
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginBottom="20dp"
+                        />
+                    <Button
+                        android:id="@+id/category_products_filter_apply_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Apply"
+                        android:background="@drawable/filter_btn_bg"
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginBottom="20dp"
+                        />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
