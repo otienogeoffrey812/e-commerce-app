@@ -154,22 +154,24 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                String baseUrl = "https://mysms.celcomafrica.com/api/services/sendsms/";
-                int partnerId = 2881; // your ID here
-                String apiKey = "d72d2587d85c517381ca0daa34ff4c9c"; // your API key
-                String shortCode = "CELCOM_SMS"; // sender ID here e.g INFOTEXT, Celcom, e.t.c
+                // Send Alert
 
-                SmsGateway gateway = new SmsGateway(baseUrl, partnerId, apiKey, shortCode);
-
-                String[] strings = {userID};
-                String user_msg = OTP + ": is your Password Reset Code for Slickk Wear App.";
-
-                try {
-                    String res = gateway.sendBulkSms(user_msg, strings);
-                    System.out.println(res);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                String baseUrl = "";
+//                int partnerId = ;
+//                String apiKey = "";
+//                String shortCode = "";
+//
+//                SmsGateway gateway = new SmsGateway(baseUrl, partnerId, apiKey, shortCode);
+//
+//                String[] strings = {userID};
+//                String user_msg = OTP + ": is your Password Reset Code for Slickk Wear App.";
+//
+//                try {
+//                    String res = gateway.sendBulkSms(user_msg, strings);
+//                    System.out.println(res);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
             }
         }).start();

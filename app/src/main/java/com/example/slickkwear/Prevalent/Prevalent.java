@@ -7,5 +7,5 @@ public class Prevalent {
     public static final String UserLoggedIn = "false";
     public static final String UserPhoneKey = "UsePhone";
     public static final String UserPasswordKey = "UsePassword";
-    public static int CartItems = 1;
+    public static int CartItems = 0;
 }
