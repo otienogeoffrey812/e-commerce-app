@@ -32,7 +32,8 @@
         <activity android:name=".RegisterActivity" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing">
+            android:windowSoftInputMode="adjustNothing"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,7 +45,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <receiver android:name=".SmsBroadcastReceiver">
+        <receiver android:name=".SmsBroadcastReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
