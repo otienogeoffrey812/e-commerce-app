@@ -26,7 +26,7 @@ This is an Android application that aims to replicate the functionality of an e-
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/otienogeoffrey812/amazon-e-commerce-clone-app.git`
+1. Clone the repository: `git clone https://github.com/otienogeoffrey812/e-commerce-app.git`
 
 ## Configuration
 
