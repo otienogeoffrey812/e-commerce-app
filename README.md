@@ -1,7 +1,6 @@
-# Amazon E-Commerce Clone App
+# E-Commerce App
 
-This is an Android application that aims to replicate the functionality of the Amazon
-e-commerce platform. It is built using Java and follows modern Android development practices.
+This is an Android application that aims to replicate the functionality of an e-commerce platform. It is built using Java and follows modern Android development practices.
 
 ## Features
 
